@@ -1316,3 +1316,94 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   linear-gradient(180deg, #f3f9f2 0%, #eef6f5 100%); }
 .pain { background: rgba(255,255,255,.75); }
 .steps4 li, .result { background: rgba(255,255,255,.8); }
+
+/* Multiplataforma */
+.dv-pill { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px; background: #fff; border: 1px solid #dbe8cc; font-size: 13.5px; font-weight: 600; color: var(--petrol); box-shadow: 0 6px 18px -10px rgba(2,65,81,.35); }
+.dv-pill svg { width: 16px; height: 16px; fill: none; stroke: var(--petrol); stroke-width: 1.7; stroke-linecap: round; }
+.devices .testi__head .h2 { max-width: 19em; }
+.dv-sub { font-size: 17.5px; line-height: 1.6; color: var(--ink-2); max-width: 40em; }
+.dv-stage { position: relative; max-width: 1080px; margin: 0 auto; aspect-ratio: 1080 / 560; }
+.dv { position: absolute; margin: 0; }
+.dv__screen { position: relative; overflow: hidden; background: #fff; }
+.dv__screen img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.dv--laptop { left: 0; bottom: 4%; width: 64%; }
+.dv--laptop .dv__screen { aspect-ratio: 16 / 10; border: 10px solid #0b1a20; border-top-width: 24px; border-radius: 16px 16px 4px 4px; box-shadow: 0 40px 60px -40px rgba(2,42,52,.6); }
+.dv__dots { position: absolute; top: -17px; left: 6px; display: flex; gap: 5px; z-index: 1; }
+.dv__dots i { width: 8px; height: 8px; border-radius: 50%; background: #ff5f57; } .dv__dots i:nth-child(2) { background: #febc2e; } .dv__dots i:nth-child(3) { background: #28c840; }
+.dv__base { height: 12px; margin: 0 -6%; border-radius: 0 0 14px 14px; background: linear-gradient(180deg, #c9d5da, #9fb1b8); box-shadow: 0 22px 30px -18px rgba(2,42,52,.5); position: relative; }
+.dv__base::before { content: ""; position: absolute; left: 42%; right: 42%; top: 0; height: 5px; border-radius: 0 0 6px 6px; background: #8ea1a8; }
+.dv--tablet { left: 49%; bottom: 0; width: 24%; z-index: 2; }
+.dv--tablet .dv__screen { aspect-ratio: 820 / 1180; border: 9px solid #0b1a20; border-radius: 22px; box-shadow: 0 40px 60px -30px rgba(2,42,52,.55); }
+.dv--phone { right: 0; bottom: 2%; width: 23%; z-index: 3; }
+.dv--phone .dv__screen { aspect-ratio: 390 / 844; border: 8px solid #0b1a20; border-radius: 34px; box-shadow: 0 40px 70px -30px rgba(2,42,52,.6); }
+.dv--phone .dv__screen::before { content: ""; position: absolute; top: 7px; left: 50%; width: 30%; height: 16px; transform: translateX(-50%); border-radius: 999px; background: #0b1a20; z-index: 1; }
+.js .dv-stage .dv { transition: transform 1s var(--ease), opacity 1s var(--ease); }
+.js .dv-stage:not(.in) .dv--laptop { transform: translateY(30px); opacity: .0; }
+.js .dv-stage:not(.in) .dv--tablet { transform: translateY(50px); opacity: 0; }
+.js .dv-stage:not(.in) .dv--phone { transform: translateY(70px); opacity: 0; }
+.dv-stage.in .dv--tablet { transition-delay: .15s; } .dv-stage.in .dv--phone { transition-delay: .3s; }
+.dv-points { list-style: none; margin: clamp(32px, 4vw, 48px) 0 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.dv-points li { display: inline-flex; align-items: center; gap: 8px; padding: 9px 15px; border-radius: 999px; background: rgba(255,255,255,.8); border: 1px solid #dbe8cc; font-size: 14px; font-weight: 500; color: var(--ink); }
+.dv-points li::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #6fb51a; }
+.dv-note { margin-top: 14px; text-align: center; font-size: 12.5px; color: var(--ink-3); }
+@media (max-width: 760px) {
+  .dv-stage { aspect-ratio: 390 / 330; }
+  .dv--laptop { width: 82%; bottom: 18%; }
+  .dv--tablet { left: 44%; width: 30%; }
+  .dv--phone { width: 27%; }
+  .dv--laptop .dv__screen { border-width: 6px; border-top-width: 14px; border-radius: 10px 10px 3px 3px; }
+  .dv__dots { top: -11px; } .dv__dots i { width: 5px; height: 5px; }
+  .dv--tablet .dv__screen { border-width: 5px; border-radius: 12px; }
+  .dv--phone .dv__screen { border-width: 4px; border-radius: 18px; }
+  .dv--phone .dv__screen::before { height: 8px; top: 4px; }
+}
+.nav__links a { white-space: nowrap; }
+
+/* v1.6 · marcos que no recortan la interfaz */
+.dv--tablet .dv__screen { border: 0; padding: 12px; background: #0b1a20; border-radius: 26px; aspect-ratio: auto; }
+.dv--tablet .dv__screen img { aspect-ratio: 820 / 1180; height: auto; border-radius: 8px; }
+.dv--phone .dv__screen { border: 0; padding: 26px 7px 9px; background: #0b1a20; border-radius: 36px; aspect-ratio: auto; }
+.dv--phone .dv__screen img { aspect-ratio: 390 / 844; height: auto; border-radius: 6px 6px 26px 26px; }
+.dv--phone .dv__screen::before { top: 8px; height: 11px; width: 28%; background: #1d2f36; }
+.dv--laptop .dv__screen { border-width: 10px; border-top-width: 24px; }
+.dv--laptop .dv__screen img { border-radius: 2px; }
+@media (max-width: 760px) {
+  .dv--tablet .dv__screen { padding: 6px; border-radius: 14px; }
+  .dv--tablet .dv__screen img { border-radius: 5px; }
+  .dv--phone .dv__screen { padding: 12px 4px 5px; border-radius: 18px; }
+  .dv--phone .dv__screen img { border-radius: 3px 3px 13px 13px; }
+  .dv--phone .dv__screen::before { top: 4px; height: 5px; }
+}
+
+/* v1.7 · mockups estilo Apple: biseles finos y limpios */
+.dv__screen { box-shadow: none; }
+/* Laptop: marco negro fino, barra superior con semáforos, base plateada delgada */
+.dv--laptop .dv__screen { border: 0; padding: 22px 6px 6px; background: #0d1117; border-radius: 14px 14px 0 0; box-shadow: 0 30px 60px -36px rgba(2,42,52,.45); aspect-ratio: auto; }
+.dv--laptop .dv__screen img { aspect-ratio: 16 / 10; height: auto; border-radius: 0; }
+.dv__dots { top: 7px; left: 14px; gap: 6px; }
+.dv__dots i { width: 9px; height: 9px; }
+.dv__dots i { background: #e5484d; } .dv__dots i:nth-child(2) { background: #d9a400; } .dv__dots i:nth-child(3) { background: #30a46c; }
+.dv__base { height: 9px; margin: 0 -5%; border-radius: 0 0 10px 10px; background: linear-gradient(180deg, #e7ecef 0%, #c9d2d7 60%, #aeb9bf 100%); box-shadow: 0 18px 26px -16px rgba(2,42,52,.45); }
+.dv__base::before { left: 43%; right: 43%; height: 4px; background: #b7c2c8; border-radius: 0 0 5px 5px; }
+/* Tablet: bisel negro fino y esquinas suaves */
+.dv--tablet .dv__screen { padding: 7px; background: #0d1117; border-radius: 18px; box-shadow: 0 34px 60px -30px rgba(2,42,52,.5); }
+.dv--tablet .dv__screen img { border-radius: 11px; }
+/* Teléfono: marco claro plateado, muy fino, sin muesca */
+.dv--phone .dv__screen { padding: 5px; background: linear-gradient(145deg, #f4f6f8, #d5dce1); border-radius: 34px; box-shadow: 0 0 0 1px rgba(2,42,52,.10), 0 38px 70px -32px rgba(2,42,52,.55); }
+.dv--phone .dv__screen::before { display: none; }
+.dv--phone .dv__screen img { border-radius: 29px; }
+@media (max-width: 760px) {
+  .dv--laptop .dv__screen { padding: 11px 3px 3px; border-radius: 8px 8px 0 0; }
+  .dv__dots { top: 3px; left: 7px; gap: 3px; } .dv__dots i { width: 5px; height: 5px; }
+  .dv__base { height: 5px; }
+  .dv--tablet .dv__screen { padding: 4px; border-radius: 10px; } .dv--tablet .dv__screen img { border-radius: 6px; }
+  .dv--phone .dv__screen { padding: 3px; border-radius: 18px; } .dv--phone .dv__screen img { border-radius: 15px; }
+}
+
+/* v1.8 · teléfono sin marco: solo la pantalla redondeada con sombra suave */
+.dv--phone .dv__screen { padding: 0; background: #fff; border-radius: 26px; box-shadow: 0 0 0 1px rgba(2,42,52,.06), 0 30px 60px -28px rgba(2,42,52,.45), 0 10px 24px -14px rgba(2,42,52,.2); }
+.dv--phone .dv__screen img { border-radius: 26px; }
+@media (max-width: 760px) {
+  .dv--phone .dv__screen { padding: 0; border-radius: 14px; }
+  .dv--phone .dv__screen img { border-radius: 14px; }
+}
