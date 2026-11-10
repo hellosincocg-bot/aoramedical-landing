@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>AoraMedical · Gestión médica y administrativa</title>
+  <meta name="description" content="AoraMedical une agenda, pacientes, cobros, consulta médica y gestión en una sola plataforma para clínicas, centros médicos, consultorios y médicos en Venezuela. Agenda tu diagnóstico operativo sin costo." />
+  <meta name="theme-color" content="#022a34" />
+  <meta property="og:title" content="AoraMedical · Toda tu operación médica en un solo lugar" />
+  <meta property="og:description" content="Agenda, cobros, consulta y gestión en una sola plataforma. Agenda tu diagnóstico operativo sin costo." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_VE" />
+  <link rel="icon" type="image/svg+xml" href="/brand/symbol.svg" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/brand/favicon-48.png" />
+  <link rel="apple-touch-icon" href="/brand/favicon-180.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&display=swap" />
+</head>
+<body>
+  <a class="skip" href="#problema">Saltar al contenido</a>
+
+  <!-- ───────────── Barra superior ───────────── -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a class="nav__brand" href="#inicio" aria-label="AoraMedical, volver al inicio">
+        <img src="/brand/logo.svg" width="1151" height="169" alt="AoraMedical" />
+      </a>
+      <nav class="nav__links" aria-label="Secciones">
+        <a href="#problema">El problema</a>
+        <a href="#solucion">Solución</a>
+        <a href="#demo">Demo</a>
+        <a href="#beneficios">Beneficios</a>
+        <a href="#testimonios">Testimonios</a>
+        <a href="#confianza">Cómo trabajamos</a>
+        <a href="#preguntas">Preguntas</a>
+      </nav>
+      <div class="nav__meta">
+        <a class="nav__cta" href="#diagnostico" data-cta="nav">Agendar diagnóstico</a>
+        <button class="nav__toggle" type="button" id="menuToggle" aria-expanded="false" aria-controls="menuSheet" aria-label="Abrir menú">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="nav__progress" aria-hidden="true"><span id="progress"></span></div>
+    <div class="sheet" id="menuSheet" hidden>
+      <a href="#problema">El problema</a>
+      <a href="#solucion">Solución</a>
+      <a href="#demo">Demo en video</a>
+      <a href="#beneficios">Beneficios</a>
+      <a href="#testimonios">Testimonios</a>
+      <a href="#confianza">Cómo trabajamos</a>
+      <a href="#preguntas">Preguntas frecuentes</a>
+      <a href="#diagnostico">Agendar diagnóstico</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- ───────────── 1 · Hero ───────────── -->
+    <section class="hero lp-hero lp-hero--c" id="inicio">
+      <div class="hero__bg" aria-hidden="true">
+        <div class="hero__glow hero__glow--a"></div>
+        <div class="hero__glow hero__glow--b"></div>
+      </div>
+      <div class="wrap lp-hc">
+        <p class="lp-badge reveal"><span class="dot"></span>Gestión médica y administrativa para clínicas, centros de salud, consultorios y médicos</p>
+        <h1 class="lp-hc__title lp-rot reveal" style="--d:80ms" id="rot">
+          <span class="lp-rot__item is-on">Del primer contacto al informe firmado: toda tu operación médica <span class="hl">en un solo lugar.</span></span>
+          <span class="lp-rot__item" aria-hidden="true">Tu centro de salud puede funcionar <span class="hl">sin Excel, cuadernos ni diez chats de WhatsApp.</span></span>
+        </h1>
+        <p class="lp-hc__lead reveal" style="--d:160ms">AoraMedical une agenda, pacientes, cobros, consulta médica y gestión en una sola plataforma. En una sesión de diagnóstico sin costo te mostramos dónde tu operación pierde tiempo e ingresos, y cómo recuperarlos.</p>
+        <div class="lp-hc__actions reveal" style="--d:240ms">
+          <a class="btn btn--light btn--lg" href="#diagnostico" data-cta="hero">Agendar mi diagnóstico sin costo <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M8.5 3.5 13 8l-4.5 4.5"/></svg></a>
+          <a class="lp-link" href="#demo">Ver cómo funciona ↓</a>
+        </div>
+        <p class="lp-micro reveal" style="--d:280ms">45 minutos · Por videollamada o presencial · Te llevas un resumen con tus 3 prioridades</p>
+        <div class="lp-profile reveal" style="--d:320ms" role="group" aria-labelledby="profileLabel">
+          <p class="lp-profile__label" id="profileLabel">¿Cuál es tu caso?</p>
+          <div class="lp-profile__chips">
+            <button type="button" class="lp-chip" data-profile="medico" aria-pressed="false">Médico independiente</button>
+            <button type="button" class="lp-chip" data-profile="centro" aria-pressed="false">Consultorio o centro médico</button>
+            <button type="button" class="lp-chip" data-profile="clinica" aria-pressed="false">Clínica o institución</button>
+          </div>
+        </div>
+      </div>
+      <div class="wrap lp-hc__stage">
+        <figure class="hero__visual reveal" style="--d:200ms" aria-label="Vista del sistema AoraMedical: sala de espera del médico">
+          <!-- Reemplazar por captura real del entorno de demostración (pacientes ficticios) cuando esté disponible. -->
+          <div class="console" id="console">
+            <div class="console__bar">
+              <span class="console__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="console__title">AoraMedical · Mi consulta</span>
+              <span class="console__tag">En vivo</span>
+            </div>
+            <div class="console__body">
+              <aside class="console__side" aria-hidden="true">
+                <p class="console__label">Consulta</p>
+                <span class="side-item"><i></i>Central de Citas</span>
+                <span class="side-item"><i></i>Agenda</span>
+                <span class="side-item"><i></i>Recepción</span>
+                <span class="side-item is-active"><i></i>Mi consulta</span>
+                <span class="side-item"><i></i>Presupuestos</span>
+                <span class="side-item"><i></i>Gerencia</span>
+              </aside>
+              <div class="console__main console__main--queue" aria-hidden="true">
+                <div class="q-head"><b>Sala de espera</b><span>Hoy · Mañana</span></div>
+                <ul class="queue">
+                  <li class="q-row is-now"><span class="q-num">05</span><span class="q-name">Paciente M. R.</span><span class="st st--in">En consulta</span><span class="pay pay--ok">Pagado</span></li>
+                  <li class="q-row"><span class="q-num">06</span><span class="q-name">Paciente J. P.</span><span class="st st--wait">En espera</span><span class="pay pay--ok">Pagado</span></li>
+                  <li class="q-row"><span class="q-num">07</span><span class="q-name">Paciente A. G.</span><span class="st st--wait">En espera</span><span class="pay pay--pend">Pendiente</span></li>
+                  <li class="q-row"><span class="q-num">08</span><span class="q-name">Paciente L. C.</span><span class="st st--conf">Confirmado</span><span class="pay pay--pend">Pendiente</span></li>
+                </ul>
+                <div class="vitals">
+                  <span><small>TA</small>120/80</span><span><small>FC</small>72</span><span><small>T°</small>36,6</span><span><small>SpO₂</small>98 %</span><span><small>IMC</small>24,1</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="float float--b" aria-hidden="true">
+            <span class="micro">Firma electrónica</span>
+            <strong><span class="lock"></span>Informe firmado y cerrado</strong>
+          </div>
+          <figcaption class="hero__caption">Pantalla de demostración con pacientes ficticios.</figcaption>
+        </figure>
+      </div>
+
+      <div class="wrap">
+
+      </div>
+    </section>
+
+    <!-- ───────────── 2 · Problema ───────────── -->
+    <section class="section section--white" id="problema">
+      <div class="wrap">
+        <div class="head">
+          <div>
+            <p class="eyebrow reveal"><span class="eyebrow__n">01</span>El costo invisible del desorden</p>
+            <h2 class="h2 reveal">Tu operación no falla por falta de esfuerzo. Falla porque <span class="hl">la información vive en demasiados lugares.</span></h2>
+          </div>
+          <p class="head__text reveal">Cada uno de estos puntos parece un detalle. Juntos son horas de tu equipo, ingresos que se escapan y pacientes que se van a otro centro. <b>Marca los que pasan en tu centro.</b></p>
+        </div>
+
+        <div class="painwrap">
+        <div class="pains" id="pains">
+          <button type="button" class="pain reveal" data-pain="Agenda sin control" aria-pressed="false">
+            <span class="pain__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span>
+            <b>Agenda sin control</b>
+            <span>Médicos con más pacientes de los que pueden atender y citas sin un teléfono para ubicar al paciente.</span>
+            <i class="pain__check" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="pain reveal" style="--d:60ms" data-pain="Pacientes que no vuelven" aria-pressed="false">
+            <span class="pain__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4h4"/></svg></span>
+            <b>Pacientes que no vuelven</b>
+            <span>Nadie le da seguimiento al paciente atendido, y la siguiente consulta depende de que él llame.</span>
+            <i class="pain__check" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="pain reveal" style="--d:120ms" data-pain="Cobros que no cuadran" aria-pressed="false">
+            <span class="pain__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="3"/><circle cx="12" cy="12" r="2.5"/></svg></span>
+            <b>Cobros que no cuadran</b>
+            <span>Pagos confirmados por WhatsApp, exoneraciones sin autorización y pacientes atendidos sin cobro registrado.</span>
+            <i class="pain__check" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="pain reveal" data-pain="El médico escribiendo a mano" aria-pressed="false">
+            <span class="pain__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 4l5 5L9 20H4v-5z"/><path d="M13 6l5 5"/></svg></span>
+            <b>El médico escribiendo a mano</b>
+            <span>Historias, récipes e informes que le quitan tiempo a la consulta y que nadie más puede leer.</span>
+            <i class="pain__check" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="pain reveal" style="--d:60ms" data-pain="Presupuestos perdidos" aria-pressed="false">
+            <span class="pain__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h4"/></svg></span>
+            <b>Presupuestos perdidos</b>
+            <span>Solicitudes de cirugía que pasan de mano en mano y nadie sabe en qué estado están.</span>
+            <i class="pain__check" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="pain reveal" style="--d:120ms" data-pain="Gerencia a ciegas" aria-pressed="false">
+            <span class="pain__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
+            <b>Gerencia a ciegas</b>
+            <span>Reportes en Excel que no coinciden entre sí y decisiones tomadas por intuición.</span>
+            <i class="pain__check" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="painbar" id="painbar" aria-live="polite">
+          <p id="painText">Toca las tarjetas que describen tu centro.</p>
+          <a class="btn btn--dark" href="#diagnostico" id="painCta" data-cta="autodiagnostico">Hablemos de estos puntos →</a>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────── 3 · Solución ───────────── -->
+    <section class="section section--dark flow" id="solucion">
+      <div class="flow__bg" aria-hidden="true"></div>
+      <div class="wrap">
+        <div class="head head--dark">
+          <div>
+            <p class="eyebrow eyebrow--dark reveal"><span class="eyebrow__n">02</span>Un solo flujo, de la llamada al informe</p>
+            <h2 class="h2 reveal">Un solo sistema acompaña a tu paciente <span class="hl">desde la primera llamada hasta el informe firmado.</span></h2>
+          </div>
+          <p class="head__text reveal">Agenda, recepción, cobro, consulta médica, presupuestos y gestión trabajan sobre el mismo registro. Se acabaron los datos repetidos, las versiones distintas y los «¿quién tiene eso?».</p>
+        </div>
+
+        <div class="journey lp-journey reveal" id="journey">
+          <div class="journey__rail" aria-hidden="true"><span id="journeyFill"></span></div>
+          <div class="journey__steps" role="tablist" aria-label="Recorrido del paciente">
+            <button type="button" role="tab" class="jstep is-on" aria-selected="true" aria-controls="jpanel" data-step="0"><i>1</i><span>Agenda</span></button>
+            <button type="button" role="tab" class="jstep" aria-selected="false" aria-controls="jpanel" data-step="1" tabindex="-1"><i>2</i><span>Recepción</span></button>
+            <button type="button" role="tab" class="jstep" aria-selected="false" aria-controls="jpanel" data-step="2" tabindex="-1"><i>3</i><span>Cobro</span></button>
+            <button type="button" role="tab" class="jstep" aria-selected="false" aria-controls="jpanel" data-step="3" tabindex="-1"><i>4</i><span>Consulta</span></button>
+            <button type="button" role="tab" class="jstep" aria-selected="false" aria-controls="jpanel" data-step="4" tabindex="-1"><i>5</i><span>Seguimiento</span></button>
+          </div>
+          <div class="journey__panel lp-panel" id="jpanel" role="tabpanel" aria-live="polite">
+            <div class="lp-panel__copy">
+              <div class="jp__meta"><span class="jp__who" id="jpWho">Agenda médica</span><span class="jp__n" id="jpN">Paso 1 de 5</span></div>
+              <h3 id="jpTitle">Agenda sin errores.</h3>
+              <p id="jpText">Cada médico con su horario y su capacidad real. El sistema no deja sobrecargarlo ni guardar una cita sin datos de contacto.</p>
+              <ul class="jp__tags" id="jpTags"><li>Capacidad por médico</li><li>Datos obligatorios</li><li>9 estados de cita</li></ul>
+            </div>
+            <div class="lp-panel__shot" aria-hidden="true">
+              <!-- Cada vista se reemplaza por su captura real (entorno de demostración). -->
+              <div class="ui lp-view is-on" data-view="0">
+                <div class="ui__bar"><b>Agenda · Medicina interna</b><span class="ui__pill">2 pac./hora</span></div>
+                <div class="slots">
+                  <div class="slot"><span>08:00</span><i class="f"></i><i class="f"></i></div>
+                  <div class="slot"><span>09:00</span><i class="f"></i><i></i></div>
+                  <div class="slot slot--full"><span>10:00</span><i class="f"></i><i class="f"></i><em>Cupo completo</em></div>
+                  <div class="slot"><span>11:00</span><i></i><i></i></div>
+                </div>
+                <div class="states"><span class="s s1">Reserva</span><span class="s s2">Confirmado</span><span class="s s3">En espera</span><span class="s s4">En consulta</span><span class="s s5">Atendido</span><span class="s s7">Suspendido</span></div>
+              </div>
+              <div class="ui lp-view" data-view="1">
+                <div class="ui__bar"><b>Recepción</b><span class="ui__pill">Hoy</span></div>
+                <div class="ticket"><div class="ticket__n"><small>Turno</small><b>07</b></div><div class="ticket__info"><b>Paciente A. G.</b><span>Asignado por orden de llegada</span></div><span class="pay pay--ok">En espera</span></div>
+                <div class="vitals vitals--light"><span><small>TA</small>120/80</span><span><small>FC</small>72</span><span><small>T°</small>36,6</span><span><small>SpO₂</small>98 %</span><span><small>IMC</small>24,1</span></div>
+              </div>
+              <div class="ui lp-view" data-view="2">
+                <div class="ui__bar"><b>Cobro de la consulta</b><span class="ui__pill">Recepción</span></div>
+                <div class="gate"><span class="gate__lock"></span><div><b>Pase a consulta bloqueado</b><small>Registra factura, referencia de Pago Móvil o exoneración</small></div></div>
+                <div class="ui__rows lp-payrows"><div><span>Exoneración</span><b>Motivo + quién autorizó</b></div><div><span>Pago Móvil</span><b>Referencia registrada</b></div></div>
+              </div>
+              <div class="ui ui--doc lp-view" data-view="3">
+                <div class="ui__bar"><b>Consulta · Paciente M. R.</b><span class="alert">⚠ Alergia: penicilina</span></div>
+                <div class="field"><small>Diagnóstico · CIE-10</small><div class="code"><b>J02.9</b>Faringitis aguda, no especificada</div></div>
+                <div class="field"><small>Récipe</small><div class="ac"><span class="ac__in">Ibupro<i></i></span><ul><li class="on">Ibuprofeno · 400 mg · tabletas</li><li>Ibuprofeno · 600 mg · tabletas</li></ul></div></div>
+                <div class="sign"><div class="pin"><i></i><i></i><i></i><i></i></div><div><b>Firmar con PIN</b><small>La consulta se cierra y no se puede alterar</small></div></div>
+              </div>
+              <div class="ui lp-view" data-view="4">
+                <div class="ui__bar"><b>Solicitud de presupuesto</b><span class="ui__pill">Cirugía</span></div>
+                <ol class="pipe">
+                  <li class="done"><i></i><div><b>Médico solicita</b><small>Desde Mi consulta</small></div></li>
+                  <li class="done"><i></i><div><b>Consulta valida</b><small>Notificada a Admisión</small></div></li>
+                  <li class="now"><i></i><div><b>Admisión elabora</b><small>En elaboración</small></div></li>
+                </ol>
+                <div class="ui__cta"><span class="btnmini">↻ Volver a agendar</span><small>Post-venta del paciente atendido</small></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <ul class="lp-diff">
+          <li class="reveal"><b>Empezamos por tu operación, no por el software.</b><span>El diagnóstico define qué necesitas y qué no.</span></li>
+          <li class="reveal" style="--d:60ms"><b>Crece contigo.</b><span>Desde una versión ligera para el médico independiente hasta una clínica con varias áreas. Activas solo los módulos que usas hoy.</span></li>
+          <li class="reveal" style="--d:120ms"><b>Hecho para Venezuela.</b><span>Consume pocos datos, funciona en el celular sin pasar por una tienda de aplicaciones y contempla Pago Móvil y la tasa BCV.</span></li>
+          <li class="reveal" style="--d:180ms"><b>Tu imagen en cada documento.</b><span>Informes, récipes y órdenes con tu membrete, tu logo y los datos del médico.</span></li>
+        </ul>
+
+        <div class="lp-center reveal"><a class="btn btn--light btn--lg" href="#diagnostico" data-cta="solucion">Agendar mi diagnóstico sin costo</a></div>
+      </div>
+    </section>
+
+    <!-- ───────────── Demo en video ───────────── -->
+    <section class="section section--dark demo" id="demo">
+      <div class="flow__bg" aria-hidden="true"></div>
+      <div class="wrap">
+        <div class="testi__head">
+          <p class="eyebrow eyebrow--dark reveal"><span class="dot"></span>Míralo en acción</p>
+          <h2 class="h2 reveal">Así funciona AoraMedical, <span class="hl">de la cita a la firma.</span></h2>
+          <p class="testi__sub reveal">Grabado en el sistema real, con pacientes y médicos ficticios.</p>
+        </div>
+        <div class="demo__box reveal">
+          <div class="demo__tabs" role="tablist" aria-label="Módulos en video">
+            <button type="button" role="tab" class="demo__tab is-on" id="dt-agenda" aria-controls="dp-agenda" aria-selected="true" data-demo="agenda">
+              <span class="demo__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span><span>Agenda médica</span><i class="demo__bar" aria-hidden="true"></i>
+            </button>
+            <button type="button" role="tab" class="demo__tab" id="dt-cobro" aria-controls="dp-cobro" aria-selected="false" tabindex="-1" data-demo="cobro">
+              <span class="demo__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="3"/><circle cx="12" cy="12" r="2.5"/></svg></span><span>Cobro</span><i class="demo__bar" aria-hidden="true"></i>
+            </button>
+            <button type="button" role="tab" class="demo__tab" id="dt-turno" aria-controls="dp-turno" aria-selected="false" tabindex="-1" data-demo="turno">
+              <span class="demo__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h3l2-5 4 10 2-5h5"/></svg></span><span>Recepción</span><i class="demo__bar" aria-hidden="true"></i>
+            </button>
+            <button type="button" role="tab" class="demo__tab" id="dt-consulta" aria-controls="dp-consulta" aria-selected="false" tabindex="-1" data-demo="consulta">
+              <span class="demo__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3v6a4 4 0 0 0 8 0V3"/><path d="M10 13v3a4 4 0 0 0 8 0v-2"/><circle cx="18" cy="12" r="2"/></svg></span><span>Consulta médica</span><i class="demo__bar" aria-hidden="true"></i>
+            </button>
+            <button type="button" role="tab" class="demo__tab" id="dt-firma" aria-controls="dp-firma" aria-selected="false" tabindex="-1" data-demo="firma">
+              <span class="demo__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19c3-1 4-6 7-6s2 4 5 4 3-3 4-4"/><path d="M4 21h16"/></svg></span><span>Firma electrónica</span><i class="demo__bar" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="demo__stage">
+          <div class="demo__panel is-on" role="tabpanel" id="dp-agenda" aria-labelledby="dt-agenda">
+            <p class="demo__chip">Módulo · Agenda médica</p>
+            <h3>Agenda sin errores.</h3>
+            <p class="demo__sub">Registra al paciente una sola vez y agéndalo con la capacidad real de cada médico.</p>
+            <div class="demo__screen">
+              <video autoplay muted loop playsinline preload="auto" poster="/video/agenda.jpg" src="/video/agenda.mp4" aria-label="Video: Agenda médica en AoraMedical"></video>
+            </div>
+          </div>
+          <div class="demo__panel" role="tabpanel" id="dp-cobro" aria-labelledby="dt-cobro" hidden>
+            <p class="demo__chip">Módulo · Cobro</p>
+            <h3>Primero se paga, luego se atiende.</h3>
+            <p class="demo__sub">Factura, referencia de Pago Móvil o transferencia antes de pasar a consulta.</p>
+            <div class="demo__screen">
+              <video autoplay muted loop playsinline preload="metadata" poster="/video/cobro.jpg" src="/video/cobro.mp4" aria-label="Video: Cobro en AoraMedical"></video>
+            </div>
+          </div>
+          <div class="demo__panel" role="tabpanel" id="dp-turno" aria-labelledby="dt-turno" hidden>
+            <p class="demo__chip">Módulo · Recepción</p>
+            <h3>Turno automático y signos vitales.</h3>
+            <p class="demo__sub">Al llegar, el paciente recibe su turno y en recepción se toman sus signos vitales.</p>
+            <div class="demo__screen">
+              <video autoplay muted loop playsinline preload="metadata" poster="/video/turno.jpg" src="/video/turno.mp4" aria-label="Video: Recepción en AoraMedical"></video>
+            </div>
+          </div>
+          <div class="demo__panel" role="tabpanel" id="dp-consulta" aria-labelledby="dt-consulta" hidden>
+            <p class="demo__chip">Módulo · Consulta médica</p>
+            <h3>Consulta estructurada en minutos.</h3>
+            <p class="demo__sub">Historia, diagnóstico CIE-10 y récipe con autocompletado desde la misma pantalla.</p>
+            <div class="demo__screen">
+              <video autoplay muted loop playsinline preload="metadata" poster="/video/consulta.jpg" src="/video/consulta.mp4" aria-label="Video: Consulta médica en AoraMedical"></video>
+            </div>
+          </div>
+          <div class="demo__panel" role="tabpanel" id="dp-firma" aria-labelledby="dt-firma" hidden>
+            <p class="demo__chip">Módulo · Firma electrónica</p>
+            <h3>Firma con PIN y consulta cerrada.</h3>
+            <p class="demo__sub">Al firmar, la consulta queda cerrada y no se puede alterar.</p>
+            <div class="demo__screen">
+              <video autoplay muted loop playsinline preload="metadata" poster="/video/firma.jpg" src="/video/firma.mp4" aria-label="Video: Firma electrónica en AoraMedical"></video>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────── 4 · Beneficios ───────────── -->
+    <section class="section section--soft" id="beneficios">
+      <div class="wrap">
+        <div class="head">
+          <div>
+            <p class="eyebrow reveal"><span class="eyebrow__n">03</span>Lo que cambia en tu día a día</p>
+            <h2 class="h2 reveal">Menos tiempo administrando. <span class="hl">Más control para atender y crecer.</span></h2>
+          </div>
+          <p class="head__text reveal">No te vendemos módulos. Te ayudamos a conseguir estos seis resultados.</p>
+        </div>
+
+        <div class="results">
+          <article class="result reveal"><span class="result__n">01</span><h3>Control operativo</h3><p class="result__msg">Sabes en todo momento qué pasa en tu centro.</p><p class="result__how">Estados de cita trazables, bitácora de quién hizo qué y tablero en tiempo real.</p></article>
+          <article class="result reveal" style="--d:60ms"><span class="result__n">02</span><h3>Menos tareas administrativas</h3><p class="result__msg">Lo repetitivo lo hace el sistema.</p><p class="result__how">Turnos automáticos, datos del paciente registrados una sola vez y documentos generados desde la consulta.</p></article>
+          <article class="result reveal" style="--d:120ms"><span class="result__n">03</span><h3>Tiempo del médico</h3><p class="result__msg">Más minutos para el paciente, menos para el papeleo.</p><p class="result__how">Historia a mano, récipe con autocompletado, esquemas guardados e informe redactado automáticamente.</p></article>
+          <article class="result reveal"><span class="result__n">04</span><h3>Experiencia del paciente</h3><p class="result__msg">Un paciente bien atendido vuelve y recomienda.</p><p class="result__how">Turnos ordenados, documentos legibles con tu imagen y seguimiento después de la consulta.</p></article>
+          <article class="result reveal" style="--d:60ms"><span class="result__n">05</span><h3>Ingresos protegidos</h3><p class="result__msg">Cada consulta atendida, cobrada.</p><p class="result__how">Cobro verificado antes de atender, exoneraciones con responsable y presupuestos con seguimiento.</p></article>
+          <article class="result reveal" style="--d:120ms"><span class="result__n">06</span><h3>Capacidad de crecer</h3><p class="result__msg">Suma médicos, áreas y sedes sin perder el orden.</p><p class="result__how">Sistema modular, permisos por rol y la misma base de datos para cada área nueva.</p></article>
+        </div>
+
+        <div class="prof reveal" id="perfiles">
+          <div class="prof__tabs" role="tablist" aria-label="Beneficios por perfil">
+            <button type="button" role="tab" class="prof__tab is-on" aria-selected="true" aria-controls="prof-medico" id="tab-medico" data-profile="medico">Médico independiente</button>
+            <button type="button" role="tab" class="prof__tab" aria-selected="false" aria-controls="prof-centro" id="tab-centro" data-profile="centro" tabindex="-1">Consultorio o centro</button>
+            <button type="button" role="tab" class="prof__tab" aria-selected="false" aria-controls="prof-clinica" id="tab-clinica" data-profile="clinica" tabindex="-1">Clínica o institución</button>
+          </div>
+          <div class="prof__panel is-on" role="tabpanel" id="prof-medico" aria-labelledby="tab-medico">
+            <div class="prof__copy">
+              <p class="micro">Lo que te duele</p>
+              <p class="prof__pain">Tiempo perdido en papeleo y en coordinar citas y pagos.</p>
+              <p class="micro">Lo que obtienes</p>
+              <p class="prof__gain">La versión ligera de AoraMedical: agenda propia, consulta estructurada, récipe e informe en minutos, firma electrónica y directorio de Pago Móvil.</p>
+            </div>
+            <div class="prof__art" aria-hidden="true">
+              <div class="ui ui--sm"><div class="ui__bar"><b>Mi consulta</b><span class="ui__pill ui__pill--lime">Versión ligera</span></div><div class="docs"><span>Informe</span><span>Récipe</span><span>Orden de exámenes</span><span>Constancia</span></div><div class="sign"><div class="pin"><i></i><i></i><i></i><i></i></div><div><b>Informe firmado</b><small>Con tu membrete y tus datos</small></div></div></div>
+            </div>
+          </div>
+          <div class="prof__panel" role="tabpanel" id="prof-centro" aria-labelledby="tab-centro" hidden>
+            <div class="prof__copy">
+              <p class="micro">Lo que te duele</p>
+              <p class="prof__pain">Agenda desordenada, turnos a mano y pagos por WhatsApp.</p>
+              <p class="micro">Lo que obtienes</p>
+              <p class="prof__gain">Agenda con capacidad por médico, turnos automáticos, cobro verificado antes de atender y documentos con la imagen de tu centro.</p>
+            </div>
+            <div class="prof__art" aria-hidden="true">
+              <div class="ui ui--sm"><div class="ui__bar"><b>Recepción</b><span class="ui__pill">Hoy</span></div><div class="ticket"><div class="ticket__n"><small>Turno</small><b>12</b></div><div class="ticket__info"><b>Paciente R. S.</b><span>Consultorio 2</span></div><span class="pay pay--ok">Pagado</span></div></div>
+            </div>
+          </div>
+          <div class="prof__panel" role="tabpanel" id="prof-clinica" aria-labelledby="tab-clinica" hidden>
+            <div class="prof__copy">
+              <p class="micro">Lo que te duele</p>
+              <p class="prof__pain">Áreas que no se hablan, números que no cuadran y fuga de ingresos.</p>
+              <p class="micro">Lo que obtienes</p>
+              <p class="prof__gain">Un flujo único entre Ventas, Recepción, médicos y Admisión, con reportes por médico, ejecutiva y canal, y una línea de cuadre que garantiza que los números coinciden.</p>
+            </div>
+            <div class="prof__art" aria-hidden="true">
+              <div class="ui ui--sm"><div class="ui__bar"><b>Tablero gerencial</b><span class="ui__pill">Tiempo real</span></div><div class="reasons"><small>Motivos de suspensión</small><div class="rbar"><span>Seguro no aprobó</span><i style="--v:62%"></i></div><div class="rbar"><span>No cuenta con el dinero</span><i style="--v:44%"></i></div></div><div class="cuadre"><span>Línea de cuadre</span><b>Reportes coinciden ✓</b></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lp-center reveal"><a class="btn btn--dark btn--lg" href="#diagnostico" data-cta="beneficios">Quiero estos resultados en mi centro</a></div>
+      </div>
+    </section>
+
+    <!-- ───────────── Testimonios (aprobados por los autores) ───────────── -->
+    <section class="section section--dark testi" id="testimonios">
+      <div class="flow__bg" aria-hidden="true"></div>
+      <div class="wrap">
+        <div class="testi__head">
+          <p class="eyebrow eyebrow--dark reveal"><span class="eyebrow__n">04</span>Testimonios</p>
+          <h2 class="h2 reveal">Lo que dicen quienes <span class="hl">ya trabajan con AoraMedical.</span></h2>
+          <p class="testi__sub reveal">Gerencia, médicos y equipo de consulta: cada rol cuenta cómo cambió su día a día.</p>
+        </div>
+        <div class="testi__grid">
+          <article class="tcard reveal">
+            <span class="stars" aria-label="5 de 5 estrellas"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.5 5.2 5.7.8-4.1 4 1 5.7L10 14.8 4.9 17.5l1-5.7-4.1-4 5.7-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.5 5.2 5.7.8-4.1 4 1 5.7L10 14.8 4.9 17.5l1-5.7-4.1-4 5.7-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.5 5.2 5.7.8-4.1 4 1 5.7L10 14.8 4.9 17.5l1-5.7-4.1-4 5.7-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.5 5.2 5.7.8-4.1 4 1 5.7L10 14.8 4.9 17.5l1-5.7-4.1-4 5.7-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.5 5.2 5.7.8-4.1 4 1 5.7L10 14.8 4.9 17.5l1-5.7-4.1-4 5.7-.8z"/></svg></span>
+            <h3>«Todas las áreas trabajan con la misma información»</h3>
+            <p>«Antes cada área llevaba su propio registro y cuadrar los números era un trabajo aparte. Hoy Ventas, Recepción, los médicos y Admisión trabajan sobre el mismo paciente, y vemos en tiempo real cómo va la consulta.»</p>
+            <footer class="tcard__who"><span class="tcard__av">CO</span><div><b>Clínica Ozanam</b><span>Gerencia · Consulta externa</span></div></footer>
+          </article>
+          <article class="tcard reveal" style="--d:80ms">
+            <span class="stars" aria-label="5 de 5 estrellas"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.5 5.2 5.7.8-4.1 4 1 5.7L10 14.8 4.9 17.5l1-5.7-4.1-4 5.7-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.5 5.2 5.7.8-4.1 4 1 5.7L10 14.8 4.9 17.5l1-5.7-4.1-4 5.7-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.5 5.2 5.7.8-4.1 4 1 5.7L10 14.8 4.9 17.5l1-5.7-4.1-4 5.7-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.5 5.2 5.7.8-4.1 4 1 5.7L10 14.8 4.9 17.5l1-5.7-4.1-4 5.7-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.5 5.2 5.7.8-4.1 4 1 5.7L10 14.8 4.9 17.5l1-5.7-4.1-4 5.7-.8z"/></svg></span>
+            <h3>«Llego a la consulta y el paciente ya está listo»</h3>
+            <p>«Veo en mi pantalla quién llegó, si ya pagó y sus signos vitales. El récipe y el informe salen de la misma consulta, así que termino más rápido y ese tiempo se lo dedico a mis pacientes.»</p>
+            <footer class="tcard__who"><span class="tcard__av">CC</span><div><b>Dr. César Chacón</b><span>Traumatólogo</span></div></footer>
+          </article>
+          <article class="tcard reveal" style="--d:160ms">
+            <span class="stars" aria-label="5 de 5 estrellas"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.5 5.2 5.7.8-4.1 4 1 5.7L10 14.8 4.9 17.5l1-5.7-4.1-4 5.7-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.5 5.2 5.7.8-4.1 4 1 5.7L10 14.8 4.9 17.5l1-5.7-4.1-4 5.7-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.5 5.2 5.7.8-4.1 4 1 5.7L10 14.8 4.9 17.5l1-5.7-4.1-4 5.7-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.5 5.2 5.7.8-4.1 4 1 5.7L10 14.8 4.9 17.5l1-5.7-4.1-4 5.7-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.5 5.2 5.7.8-4.1 4 1 5.7L10 14.8 4.9 17.5l1-5.7-4.1-4 5.7-.8z"/></svg></span>
+            <h3>«Los turnos y los cobros ya no dependen de un Excel»</h3>
+            <p>«El turno se asigna solo cuando el paciente llega y nadie pasa a consulta sin su pago registrado. Mi equipo sabe qué le toca y yo sé en todo momento cómo va el día.»</p>
+            <footer class="tcard__who"><span class="tcard__av">OM</span><div><b>Lic. Omarly Martínez</b><span>Jefa de Consulta</span></div></footer>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────── 5 · Confianza ───────────── -->
+    <section class="section section--white" id="confianza">
+      <div class="wrap">
+        <div class="head">
+          <div>
+            <p class="eyebrow reveal"><span class="eyebrow__n">05</span>Sin sorpresas</p>
+            <h2 class="h2 reveal">Cambiar de sistema no debería ser un riesgo. Por eso lo hacemos <span class="hl">paso a paso, contigo.</span></h2>
+          </div>
+          <div class="head__side reveal">
+            <img class="doc-photo" src="/img/consulta-medica.jpg" width="1400" height="788" alt="Médico conversando con su paciente en el consultorio, con la laptop sobre el escritorio" loading="lazy" />
+            <p class="head__text">Primero entendemos tu operación. Después configuramos el sistema a tu medida. Y nos quedamos, con soporte 24 horas, para que funcione.</p>
+          </div>
+        </div>
+
+        <ol class="steps4">
+          <li class="reveal"><span>1</span><b>Diagnóstico</b><p>Mapeamos tu flujo actual y te entregamos tus 3 prioridades por escrito.</p></li>
+          <li class="reveal" style="--d:60ms"><span>2</span><b>Propuesta a tu medida</b><p>Solo los módulos que necesitas, con una inversión clara y por escrito.</p></li>
+          <li class="reveal" style="--d:120ms"><span>3</span><b>Configuración y carga de datos</b><p>Configuramos tu imagen institucional e importamos tu base de pacientes. No empiezas de cero.</p></li>
+          <li class="reveal" style="--d:180ms"><span>4</span><b>Acompañamiento</b><p>Capacitamos a tu equipo en la puesta en marcha y te damos soporte 24 horas.</p></li>
+        </ol>
+
+        <div class="lp-secure reveal">
+          <div class="vault">
+            <div class="vault__lock" aria-hidden="true"><svg viewBox="0 0 48 48"><rect x="10" y="21" width="28" height="20" rx="5"/><path d="M16 21v-5a8 8 0 0 1 16 0v5"/><circle cx="24" cy="31" r="2.6"/></svg></div>
+            <h3>Tus pacientes confían en ti. Tú puedes confiar en cómo protegemos sus datos.</h3>
+            <p class="micro micro--dark">Cada rol ve solo lo que le corresponde</p>
+            <ul class="roles"><li>Ventas</li><li>Recepción</li><li>Admisión</li><li>Médicos</li><li>Gerencia</li></ul>
+          </div>
+          <ul class="techs techs--light">
+            <li class="tech"><span class="tech__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><rect x="10" y="13" width="6" height="5" rx="1"/><path d="M11.5 13v-1.5a1.5 1.5 0 0 1 3 0V13"/></svg></span><b>Notas clínicas privadas</b><span>Solo las ve el médico tratante; ni el administrador del sistema puede leerlas.</span></li>
+            <li class="tech"><span class="tech__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19c3-1 4-6 7-6s2 4 5 4 3-3 4-4"/><path d="M4 21h16"/></svg></span><b>Consulta firmada, consulta cerrada</b><span>Al firmar con PIN, la consulta no se puede alterar.</span></li>
+            <li class="tech"><span class="tech__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><b>Bitácora de auditoría</b><span>Quién hizo qué y cuándo, en todo el sistema.</span></li>
+            <li class="tech"><span class="tech__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><b>Datos aislados</b><span>La información de cada institución está separada de cualquier otra.</span></li>
+          </ul>
+        </div>
+
+        <div class="sinco reveal">
+          <div class="sinco__logo"><img class="sinco-logo sinco-logo--lg" src="/brand/sinco.svg" width="1281" height="341" alt="SINCO Consulting Group" loading="lazy" /></div>
+          <p>AoraMedical es una solución de <b>SINCO Consulting Group</b>. Detrás de cada implementación hay un equipo de consultores que conoce la operación de salud en Venezuela.</p>
+        </div>
+
+        <div class="faq" id="preguntas">
+          <h3 class="h2 faq__title reveal">¿Tienes dudas? <span class="hl">Tenemos respuestas.</span></h3>
+          <div class="faq__list">
+            <details class="reveal" name="faq" open><summary>¿El diagnóstico me obliga a comprar?</summary><p>No. Te llevas el resumen de oportunidades aunque decidas no avanzar.</p></details>
+            <details class="reveal" name="faq"><summary>¿Es por videollamada o presencial?</summary><p>Como prefieras. Lo eliges al agendar.</p></details>
+            <details class="reveal" name="faq"><summary>¿Pierdo los datos que ya tengo?</summary><p>No. Importamos tu base de pacientes existente.</p></details>
+            <details class="reveal" name="faq"><summary>¿Tengo que detener la operación para implementarlo?</summary><p>No. La puesta en marcha se planifica con tu equipo para no frenar la atención.</p></details>
+            <details class="reveal" name="faq"><summary>¿Mi equipo lo va a aprender?</summary><p>Cada persona ve solo las pantallas de su rol, lo que simplifica el uso, y capacitamos a tu equipo en la puesta en marcha.</p></details>
+            <details class="reveal" name="faq"><summary>¿Qué pasa si tengo un problema?</summary><p>Tienes soporte 24 horas.</p></details>
+            <details class="reveal" name="faq"><summary>¿Funciona con mala conexión?</summary><p>Está hecho para consumir pocos datos: solo descarga lo que cambió. Y entras a tu consulta estés donde estés.</p></details>
+            <details class="reveal" name="faq"><summary>Trabajo solo, ¿es para mí?</summary><p>Sí. Hay una versión ligera para el médico independiente, y crece contigo si sumas consultorios o colegas.</p></details>
+            <details class="reveal" name="faq"><summary>¿Cuánto cuesta?</summary><p>Depende de los módulos y del tamaño de tu operación. Al final del diagnóstico recibes una propuesta clara y por escrito.</p></details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────── 6 · Cierre ───────────── -->
+    <section class="closing lp-close" id="diagnostico">
+      <div class="closing__bg" aria-hidden="true"></div>
+      <div class="wrap closing__inner lp-close__inner">
+        <div class="closing__copy">
+          <p class="eyebrow eyebrow--dark reveal"><span class="dot"></span>Diagnóstico Operativo AoraMedical</p>
+          <h2 class="closing__title reveal">En 45 minutos sabrás exactamente <span class="hl">dónde tu operación pierde tiempo e ingresos.</span></h2>
+          <p class="lp-close__lead reveal">Una sesión con nuestro equipo, por videollamada o presencial, para mapear cómo trabaja hoy tu centro y definir qué mejorar primero. Tú decides después.</p>
+          <ul class="why reveal">
+            <li>Un recorrido por tu flujo actual: cómo llega, se atiende, se cobra y se sigue a un paciente.</li>
+            <li>Las tres oportunidades de mejora prioritarias, entregadas por escrito.</li>
+            <li>Una recomendación honesta de qué módulos aplican a tu caso, o si hoy no te conviene implementar.</li>
+            <li>Un recorrido por el sistema con casos parecidos a los de tu centro.</li>
+          </ul>
+          <p class="lp-risk reveal">Si al final de la sesión no encuentras valor en lo que te mostramos, no te volveremos a escribir.</p>
+        </div>
+
+        <div class="lead reveal" id="lead">
+          <div class="lead__progress" aria-hidden="true"><span id="leadBar"></span></div>
+          <p class="lead__step" id="leadStep">Paso 1 de 2</p>
+
+          <form id="leadForm" novalidate>
+            <fieldset class="lead__fs is-on" data-fs="1">
+              <legend>Empecemos por lo básico</legend>
+              <label class="fld"><span>Nombre y apellido</span><input name="nombre" autocomplete="name" required /></label>
+              <label class="fld"><span>WhatsApp</span>
+                <span class="fld__tel"><b>+58</b><input name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="412 1234567" required /></span>
+                <em class="fld__err" id="telErr" hidden>Revisa el número: lo usaremos para confirmar tu cita.</em>
+              </label>
+              <div class="fld"><span id="lblTipo">Tipo de centro</span>
+                <div class="opts" role="radiogroup" aria-labelledby="lblTipo">
+                  <label><input type="radio" name="perfil" value="medico" required /><span>Médico independiente</span></label>
+                  <label><input type="radio" name="perfil" value="centro" /><span>Consultorio o centro</span></label>
+                  <label><input type="radio" name="perfil" value="clinica" /><span>Clínica o institución</span></label>
+                </div>
+              </div>
+              <button type="button" class="btn btn--light btn--block" id="toStep2">Continuar →</button>
+            </fieldset>
+
+            <fieldset class="lead__fs" data-fs="2" hidden>
+              <legend>Cuéntanos de tu centro</legend>
+              <p class="lead__help">Con esto preparamos tu diagnóstico antes de la sesión.</p>
+              <label class="fld"><span>Nombre del centro o consultorio</span><input name="centro" autocomplete="organization" required /></label>
+              <div class="fld"><span id="lblCargo">Cargo</span>
+                <div class="opts" role="radiogroup" aria-labelledby="lblCargo">
+                  <label><input type="radio" name="cargo" value="Director o dueño" required /><span>Director o dueño</span></label>
+                  <label><input type="radio" name="cargo" value="Gerente o administrador" /><span>Gerente o administrador</span></label>
+                  <label><input type="radio" name="cargo" value="Médico" /><span>Médico</span></label>
+                  <label><input type="radio" name="cargo" value="Otro" /><span>Otro</span></label>
+                </div>
+              </div>
+              <div class="fld"><span id="lblMed">Médicos que atienden</span>
+                <div class="opts" role="radiogroup" aria-labelledby="lblMed">
+                  <label><input type="radio" name="medicos" value="Solo yo" required /><span>Solo yo</span></label>
+                  <label><input type="radio" name="medicos" value="2 a 5" /><span>2 a 5</span></label>
+                  <label><input type="radio" name="medicos" value="6 a 20" /><span>6 a 20</span></label>
+                  <label><input type="radio" name="medicos" value="Más de 20" /><span>Más de 20</span></label>
+                </div>
+              </div>
+              <div class="fld"><span id="lblMod">Modalidad del diagnóstico</span>
+                <div class="opts" role="radiogroup" aria-labelledby="lblMod">
+                  <label><input type="radio" name="modalidad" value="Videollamada" required checked /><span>Videollamada</span></label>
+                  <label><input type="radio" name="modalidad" value="Presencial" /><span>Presencial</span></label>
+                </div>
+              </div>
+              <label class="fld" id="cityField"><span>Ciudad <small id="cityReq">(opcional)</small></span><input name="ciudad" autocomplete="address-level2" /></label>
+              <label class="fld"><span>Correo electrónico <small>(opcional)</small></span><input name="correo" type="email" autocomplete="email" /></label>
+              <div class="lead__row">
+                <button type="button" class="lead__back" id="toStep1">← Atrás</button>
+                <button type="submit" class="btn btn--light">Elegir fecha de mi diagnóstico</button>
+              </div>
+            </fieldset>
+            <p class="lead__privacy">Tus datos solo se usan para coordinar tu sesión. No enviamos publicidad.</p>
+          </form>
+
+          <div class="lead__done" id="leadDone" hidden tabindex="-1">
+            <span class="lead__ok" aria-hidden="true"></span>
+            <h3 id="doneTitle">¡Listo! Último paso: elige tu fecha.</h3>
+            <p id="doneText">Elige el día y la hora de tu diagnóstico. Te enviamos la confirmación por WhatsApp.</p>
+            <a class="btn btn--light btn--block" id="agendaBtn" href="#" target="_blank" rel="noopener">Elegir fecha y hora</a>
+            <a class="btn btn--ghost btn--block" id="waConfirm" href="#" target="_blank" rel="noopener">Confirmar por WhatsApp</a>
+            <p class="lead__tip">Para aprovechar la sesión, piensa en un día normal de tu centro: cómo llega un paciente, cómo se cobra y qué se le hace difícil a tu equipo.</p>
+          </div>
+
+          <p class="lead__alt">¿Prefieres conversar primero? <a href="#" class="js-wa" data-cta="cierre-whatsapp">Escríbenos por WhatsApp</a></p>
+          <p class="lead__meta">Sin costo · Sin compromiso · Te respondemos en menos de 24 horas</p>
+        </div>
+      </div>
+
+      <footer class="wrap">
+        <div class="lp-foot">
+          <div class="lp-foot__brand">
+            <img src="/brand/logo.svg" width="1151" height="169" alt="AoraMedical" loading="lazy" />
+            <p>Gestión médica y administrativa para clínicas, centros de salud, consultorios y médicos en Venezuela.</p>
+            <span class="lp-footer__sinco">Una solución de <img class="sinco-logo" src="/brand/sinco-white.svg" width="1281" height="341" alt="SINCO Consulting Group" loading="lazy" /></span>
+          </div>
+          <nav class="lp-foot__col" aria-label="Producto">
+            <p>Producto</p>
+            <a href="#problema">El problema</a>
+            <a href="#solucion">Solución</a>
+            <a href="#demo">Demo en video</a>
+            <a href="#beneficios">Beneficios</a>
+            <a href="#testimonios">Testimonios</a>
+          </nav>
+          <nav class="lp-foot__col" aria-label="Soporte">
+            <p>Soporte</p>
+            <a href="#preguntas">Preguntas frecuentes</a>
+            <a href="#confianza">Cómo trabajamos</a>
+            <a href="#privacidad">Aviso de privacidad</a>
+            <span>Venezuela</span>
+          </nav>
+          <nav class="lp-foot__col" aria-label="Contacto">
+            <p>Contacto</p>
+            <a href="#diagnostico" data-cta="footer">Agendar diagnóstico</a>
+            <a href="#" class="js-wa" data-cta="footer-whatsapp">WhatsApp</a>
+            <span>Soporte 24 horas</span>
+          </nav>
+        </div>
+        <p class="lp-legal" id="privacidad">Los datos que envías en este formulario se usan únicamente para coordinar tu Diagnóstico Operativo y responder tu solicitud. No se comparten con terceros ni se usan para publicidad.</p>
+      </footer>
+    </section>
+  </main>
+
+  <!-- Acceso rápido: WhatsApp flotante y barra fija en móvil -->
+  <a class="wa-fab js-wa" href="#" aria-label="Escríbenos por WhatsApp" data-cta="whatsapp-flotante">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a9.5 9.5 0 0 0-8.2 14.3L2.5 21.5l4.8-1.3A9.5 9.5 0 1 0 12 2.5Z"/><path d="M8.6 7.9c.2-.4.4-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .6l-.5.7c-.1.2-.2.3 0 .6.6 1 1.4 1.8 2.5 2.4.3.1.4.1.6-.1l.7-.8c.2-.2.3-.2.6-.1l1.8.9c.3.1.4.2.4.4 0 .5-.1 1.2-.6 1.6-.5.4-1.2.7-1.9.6-1.3-.2-3-.9-4.4-2.3-1.5-1.4-2.3-3-2.5-4.2-.1-.9.2-1.6.7-2.3Z"/></svg>
+  </a>
+  <div class="mbar" id="mbar">
+    <a class="btn btn--light" href="#diagnostico" data-cta="barra-movil">Agendar diagnóstico</a>
+    <a class="mbar__wa js-wa" href="#" aria-label="WhatsApp" data-cta="barra-movil-whatsapp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a9.5 9.5 0 0 0-8.2 14.3L2.5 21.5l4.8-1.3A9.5 9.5 0 1 0 12 2.5Z"/></svg></a>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
