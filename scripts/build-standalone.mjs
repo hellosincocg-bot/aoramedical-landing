@@ -30,7 +30,7 @@ html = html.replace(/<script type="module" crossorigin src="\/(assets\/[^"]+\.js
 if (!css || !js) throw new Error('Could not find the built CSS/JS in dist/index.html.');
 
 // Official brand files become data URIs (unchanged bytes).
-html = html.replace(/(["(])\/(brand|img|video)\/([\w.-]+\.(?:svg|png|jpg|webp|mp4))/g, (_, q, d, f) => q + dataUri(`${d}/${f}`));
+html = html.replace(/(["(])\/(brand|img|video)\/([\w./-]+\.(?:svg|png|jpg|webp|mp4))/g, (_, q, d, f) => q + dataUri(`${d}/${f}`));
 html = html.replace('</head>', () => `<style>${css}</style>\n</head>`);
 html = html.replace('</body>', () => `<script type="module">${js}</script>\n</body>`);
 
@@ -39,7 +39,7 @@ writeFileSync(join(root, 'standalone', 'AoraMedical_Landing.html'), html);
 
 // Fragment: keep title + styles + body content.
 const head = html.match(/<head>([\s\S]*?)<\/head>/)[1];
-const body = html.match(/<body>([\s\S]*?)<\/body>/)[1];
+const body = html.match(/<body[^>]*>([\s\S]*?)<\/body>/)[1];
 const keep = [
   head.match(/<title>[\s\S]*?<\/title>/)[0],
   '<meta name="claude:viewport-fit-sides" content="cover">',

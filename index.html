@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&display=swap" />
 </head>
-<body>
+<body data-aud="general">
   <a class="skip" href="#problema">Saltar al contenido</a>
 
   <!-- ───────────── Barra superior ───────────── -->
@@ -26,7 +26,7 @@
       <a class="nav__brand" href="#inicio" aria-label="AoraMedical, volver al inicio">
         <img src="/brand/logo.svg" width="1151" height="169" alt="AoraMedical" />
       </a>
-      <nav class="nav__links" aria-label="Secciones">
+      <nav class="nav__links" aria-label="Secciones" data-aud-show="general">
         <a href="#problema">El problema</a>
         <a href="#solucion">Solución</a>
         <a href="#demo">Demo</a>
@@ -35,8 +35,20 @@
         <a href="#confianza">Cómo trabajamos</a>
         <a href="#preguntas">Preguntas</a>
       </nav>
+      <nav class="nav__links" aria-label="Secciones del plan para médicos" data-aud-show="medico">
+        <a href="#md-problema">Por qué</a>
+        <a href="#md-demo">Demo</a>
+        <a href="#md-incluye">Qué incluye</a>
+        <a href="#md-precio">Precio</a>
+        <a href="#md-preguntas">Preguntas</a>
+      </nav>
       <div class="nav__meta">
-        <a class="nav__cta" href="#diagnostico" data-cta="nav">Agendar diagnóstico</a>
+        <div class="aud-switch" role="group" aria-label="Versión de la página">
+          <button type="button" data-aud-go="medico" aria-pressed="false">Para médicos</button>
+          <button type="button" data-aud-go="general" aria-pressed="true">Para centros y clínicas</button>
+        </div>
+        <a class="nav__cta" href="#diagnostico" data-cta="nav-cotizar" data-aud-show="general">Cotizar</a>
+        <a class="nav__cta nav__cta--lime" href="#md-precio" data-cta="md-nav" data-aud-show="medico">$59,99/mes</a>
         <button class="nav__toggle" type="button" id="menuToggle" aria-expanded="false" aria-controls="menuSheet" aria-label="Abrir menú">
           <span></span><span></span>
         </button>
@@ -44,6 +56,11 @@
     </div>
     <div class="nav__progress" aria-hidden="true"><span id="progress"></span></div>
     <div class="sheet" id="menuSheet" hidden>
+      <div class="aud-switch aud-switch--sheet" role="group" aria-label="Versión de la página">
+        <button type="button" data-aud-go="medico" aria-pressed="false">Para médicos</button>
+        <button type="button" data-aud-go="general" aria-pressed="true">Para centros y clínicas</button>
+      </div>
+      <div class="sheet__group" data-aud-show="general">
       <a href="#problema">El problema</a>
       <a href="#solucion">Solución</a>
       <a href="#dispositivos">Multiplataforma</a>
@@ -52,11 +69,22 @@
       <a href="#testimonios">Testimonios</a>
       <a href="#confianza">Cómo trabajamos</a>
       <a href="#preguntas">Preguntas frecuentes</a>
-      <a href="#diagnostico">Agendar diagnóstico</a>
+      <a href="#planes">Planes</a>
+      <a href="#diagnostico">Cotizar o agendar diagnóstico</a>
+      </div>
+      <div class="sheet__group" data-aud-show="medico">
+      <a href="#md-problema">Por qué AoraMedical</a>
+      <a href="#md-demo">Demo en video</a>
+      <a href="#md-incluye">Qué incluye</a>
+      <a href="#md-dia">Un día con AoraMedical</a>
+      <a href="#md-precio">Precio y promo</a>
+      <a href="#md-preguntas">Preguntas frecuentes</a>
+      <a href="#md-activar">Activar mi plan</a>
+      </div>
     </div>
   </header>
 
-  <main>
+  <main id="mainGeneral" data-aud-show="general">
     <!-- ───────────── 1 · Hero ───────────── -->
     <section class="hero lp-hero lp-hero--c" id="inicio">
       <div class="hero__bg" aria-hidden="true">
@@ -78,7 +106,7 @@
         <div class="lp-profile reveal" style="--d:320ms" role="group" aria-labelledby="profileLabel">
           <p class="lp-profile__label" id="profileLabel">¿Cuál es tu caso?</p>
           <div class="lp-profile__chips">
-            <button type="button" class="lp-chip" data-profile="medico" aria-pressed="false">Médico independiente</button>
+            <button type="button" class="lp-chip" data-profile="medico" data-aud-go="medico" aria-pressed="false">Médico independiente <span class="lp-chip__tag">Ver plan</span></button>
             <button type="button" class="lp-chip" data-profile="centro" aria-pressed="false">Consultorio o centro médico</button>
             <button type="button" class="lp-chip" data-profile="clinica" aria-pressed="false">Clínica o institución</button>
           </div>
@@ -283,7 +311,7 @@
             <div class="dv__base" aria-hidden="true"></div>
           </figure>
           <figure class="dv dv--tablet">
-            <div class="dv__screen"><img src="/img/dispositivo-tablet.jpg" width="760" height="1094" alt="AoraMedical en tablet: Gestión de Asesoras con el turno y el pago registrado" loading="lazy" /></div>
+            <div class="dv__screen"><img src="/img/dispositivo-tablet.jpg" width="1100" height="764" alt="AoraMedical en tablet: Gestión de Asesoras con el turno y el pago registrado" loading="lazy" /></div>
           </figure>
           <figure class="dv dv--phone">
             <div class="dv__screen"><img src="/img/dispositivo-mobile.jpg" width="520" height="1125" alt="AoraMedical en teléfono: la sala de espera del médico" loading="lazy" /></div>
@@ -403,7 +431,8 @@
               <p class="micro">Lo que te duele</p>
               <p class="prof__pain">Tiempo perdido en papeleo y en coordinar citas y pagos.</p>
               <p class="micro">Lo que obtienes</p>
-              <p class="prof__gain">La versión ligera de AoraMedical: agenda propia, consulta estructurada, récipe e informe en minutos, firma electrónica y directorio de Pago Móvil.</p>
+              <p class="prof__gain">El plan para médicos independientes: agenda propia, consulta estructurada, récipe e informe en minutos, firma electrónica y presupuestos de cirugía.</p>
+              <a class="prof__link" href="./?para=medico" data-aud-go="medico">Ver el plan para médicos →</a>
             </div>
             <div class="prof__art" aria-hidden="true">
               <div class="ui ui--sm"><div class="ui__bar"><b>Mi consulta</b><span class="ui__pill ui__pill--lime">Versión ligera</span></div><div class="docs"><span>Informe</span><span>Récipe</span><span>Orden de exámenes</span><span>Constancia</span></div><div class="sign"><div class="pin"><i></i><i></i><i></i><i></i></div><div><b>Informe firmado</b><small>Con tu membrete y tus datos</small></div></div></div>
@@ -437,12 +466,43 @@
       </div>
     </section>
 
+    <!-- ───────────── Planes (general: cotizar) ───────────── -->
+    <section class="section section--white" id="planes">
+      <div class="wrap">
+        <div class="testi__head">
+          <p class="eyebrow reveal"><span class="eyebrow__n">04</span>Planes</p>
+          <h2 class="h2 reveal">Un plan para cada tamaño <span class="hl">de operación.</span></h2>
+          <p class="dv-sub reveal">Activas solo los módulos que usas hoy. Te enviamos una cotización clara y por escrito.</p>
+        </div>
+        <div class="tiers">
+          <article class="tier reveal">
+            <p class="tier__name">Médico independiente</p>
+            <p class="tier__for">Para el médico que atiende por su cuenta.</p>
+            <ul><li>Agenda propia</li><li>Historia clínica y récipe</li><li>Firma electrónica con PIN</li><li>Presupuestos de cirugía</li></ul>
+            <a class="btn btn--dark btn--block" href="./?para=medico" data-aud-go="medico" data-cta="planes-medico">Ver plan y precio</a>
+          </article>
+          <article class="tier tier--hot reveal" style="--d:60ms">
+            <p class="tier__name">Consultorio o centro médico</p>
+            <p class="tier__for">Para equipos con varios médicos y recepción.</p>
+            <ul><li>Agenda con capacidad por médico</li><li>Recepción, turnos y signos vitales</li><li>Cobro verificado antes de atender</li><li>Documentos con tu imagen</li></ul>
+            <a class="btn btn--lime btn--block" href="#diagnostico" data-cta="cotizar-centro" data-cotizar="Consultorio o centro">Cotizar</a>
+          </article>
+          <article class="tier reveal" style="--d:120ms">
+            <p class="tier__name">Clínica o institución</p>
+            <p class="tier__for">Para operaciones con varias áreas y sedes.</p>
+            <ul><li>Ventas, Recepción, Consulta y Admisión</li><li>Presupuestos con seguimiento por área</li><li>Tablero gerencial y reportes</li><li>Permisos por rol y bitácora</li></ul>
+            <a class="btn btn--dark btn--block" href="#diagnostico" data-cta="cotizar-clinica" data-cotizar="Clínica o institución">Cotizar</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <!-- ───────────── Testimonios (aprobados por los autores) ───────────── -->
     <section class="section section--dark testi" id="testimonios">
       <div class="flow__bg" aria-hidden="true"></div>
       <div class="wrap">
         <div class="testi__head">
-          <p class="eyebrow eyebrow--dark reveal"><span class="eyebrow__n">04</span>Testimonios</p>
+          <p class="eyebrow eyebrow--dark reveal"><span class="eyebrow__n">05</span>Testimonios</p>
           <h2 class="h2 reveal">Lo que dicen quienes <span class="hl">ya trabajan con AoraMedical.</span></h2>
           <p class="testi__sub reveal">Gerencia, médicos y equipo de consulta: cada rol cuenta cómo cambió su día a día.</p>
         </div>
@@ -474,7 +534,7 @@
       <div class="wrap">
         <div class="head">
           <div>
-            <p class="eyebrow reveal"><span class="eyebrow__n">05</span>Sin sorpresas</p>
+            <p class="eyebrow reveal"><span class="eyebrow__n">06</span>Sin sorpresas</p>
             <h2 class="h2 reveal">Cambiar de sistema no debería ser un riesgo. Por eso lo hacemos <span class="hl">paso a paso, contigo.</span></h2>
           </div>
           <div class="head__side reveal">
@@ -520,8 +580,8 @@
             <details class="reveal" name="faq"><summary>¿Mi equipo lo va a aprender?</summary><p>Cada persona ve solo las pantallas de su rol, lo que simplifica el uso, y capacitamos a tu equipo en la puesta en marcha.</p></details>
             <details class="reveal" name="faq"><summary>¿Qué pasa si tengo un problema?</summary><p>Tienes soporte 24 horas.</p></details>
             <details class="reveal" name="faq"><summary>¿Funciona con mala conexión?</summary><p>Está hecho para consumir pocos datos: solo descarga lo que cambió. Y entras a tu consulta estés donde estés.</p></details>
-            <details class="reveal" name="faq"><summary>Trabajo solo, ¿es para mí?</summary><p>Sí. Hay una versión ligera para el médico independiente, y crece contigo si sumas consultorios o colegas.</p></details>
-            <details class="reveal" name="faq"><summary>¿Cuánto cuesta?</summary><p>Depende de los módulos y del tamaño de tu operación. Al final del diagnóstico recibes una propuesta clara y por escrito.</p></details>
+            <details class="reveal" name="faq"><summary>Trabajo solo, ¿es para mí?</summary><p>Sí. Tenemos un plan para médicos independientes por el precio de una consulta al mes. <a href="./?para=medico" data-aud-go="medico">Ver el plan para médicos</a>.</p></details>
+            <details class="reveal" name="faq"><summary>¿Cuánto cuesta?</summary><p>Depende de los módulos y del tamaño de tu operación. <a href="#diagnostico" data-cta="faq-cotizar">Pide tu cotización</a> y la recibes clara y por escrito.</p></details>
           </div>
         </div>
       </div>
@@ -629,6 +689,7 @@
             <a href="#solucion">Solución</a>
             <a href="#demo">Demo en video</a>
             <a href="#beneficios">Beneficios</a>
+            <a href="#planes">Planes</a>
             <a href="#testimonios">Testimonios</a>
           </nav>
           <nav class="lp-foot__col" aria-label="Soporte">
@@ -640,7 +701,8 @@
           </nav>
           <nav class="lp-foot__col" aria-label="Contacto">
             <p>Contacto</p>
-            <a href="#diagnostico" data-cta="footer">Agendar diagnóstico</a>
+            <a href="#diagnostico" data-cta="footer-cotizar">Cotizar</a>
+            <a href="./?para=medico" data-aud-go="medico">Plan para médicos</a>
             <a href="#" class="js-wa" data-cta="footer-whatsapp">WhatsApp</a>
             <span>Soporte 24 horas</span>
           </nav>
@@ -650,12 +712,418 @@
     </section>
   </main>
 
+  <!-- ═════════════════════ VERSIÓN · MÉDICO INDEPENDIENTE ═════════════════════ -->
+  <main id="mainMedico" data-aud-show="medico">
+    <!-- M1 · Hero -->
+    <section class="hero lp-hero lp-hero--c md-hero" id="md-inicio">
+      <div class="hero__bg" aria-hidden="true">
+        <div class="hero__glow hero__glow--a"></div>
+        <div class="hero__glow hero__glow--b"></div>
+      </div>
+      <div class="wrap lp-hc">
+        <p class="lp-badge reveal"><span class="dot"></span>Plan para médicos independientes · $59,99 al mes + IVA</p>
+        <h1 class="lp-hc__title lp-rot reveal" style="--d:80ms" id="mdRot">
+          <span class="lp-rot__item is-on">Por el precio de una consulta al mes, tienes tu consultorio completo <span class="hl">en tu celular.</span></span>
+          <span class="lp-rot__item" aria-hidden="true">Por el precio de una consulta al mes: agenda, historias, récipes y presupuestos <span class="hl">en un solo lugar.</span></span>
+          <span class="lp-rot__item" aria-hidden="true">Por el precio de una consulta al mes, <span class="hl">dejas el papeleo y vuelves a la medicina.</span></span>
+        </h1>
+        <p class="lp-hc__lead reveal" style="--d:160ms">Tienes dos accesos: el tuyo, para historias, récipes e informes firmados con tu PIN, y el de tu secretaria, para agendar, cobrar y armar presupuestos. ¿Trabajas sin secretaria? Lo haces tú mismo. Desde la computadora, la tablet o el celular, sin instalar nada.</p>
+        <div class="lp-hc__actions reveal" style="--d:240ms">
+          <a class="btn btn--lime btn--lg" href="#md-precio" data-cta="md-hero">Activar mi plan por $59,99/mes <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M8.5 3.5 13 8l-4.5 4.5"/></svg></a>
+          <a class="lp-link" href="#md-demo">Ver cómo funciona ↓</a>
+        </div>
+        <p class="lp-micro reveal" style="--d:280ms">+ IVA · Sin costo de instalación · Soporte 24 horas</p>
+        <a class="md-promo reveal" style="--d:320ms" href="#md-precio" data-cta="md-hero-promo"><b>Promo</b><span>Paga 2 meses y el tercero es gratis</span><i aria-hidden="true">→</i></a>
+      </div>
+      <div class="wrap lp-hc__stage">
+        <figure class="hero__visual md-shot reveal" style="--d:200ms" aria-label="Pantalla real de AoraMedical: consulta con diagnóstico y récipe">
+          <div class="md-shot__frame">
+            <span class="md-shot__bar" aria-hidden="true"><i></i><i></i><i></i><em>AoraMedical · Mi consulta</em></span>
+            <img src="/img/medico-consulta.jpg" width="1440" height="900" alt="Consulta de una paciente ficticia en AoraMedical: diagnóstico Artralgia (M25.5) y récipe con diclofenac" />
+          </div>
+          <div class="float float--a md-float" aria-hidden="true">
+            <span class="micro">Presupuesto de cirugía</span>
+            <strong>Artroscopia de rodilla · Aprobado</strong>
+          </div>
+          <div class="float float--b md-float" aria-hidden="true">
+            <span class="micro">Firma electrónica</span>
+            <strong><span class="lock"></span>Récipe firmado con tu PIN</strong>
+          </div>
+          <figcaption class="hero__caption">Pantalla real del sistema con una paciente ficticia.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- M2 · El problema -->
+    <section class="section section--white" id="md-problema">
+      <div class="wrap">
+        <div class="head">
+          <div>
+            <p class="eyebrow reveal"><span class="eyebrow__n">01</span>La consulta que se te escapa</p>
+            <h2 class="h2 reveal">Cada cita olvidada, cada récipe a mano y cada presupuesto en Word <span class="hl">te cuestan más de $59,99.</span></h2>
+          </div>
+          <div class="md-ask">
+            <div class="md-ask__card reveal">
+              <p class="md-ask__q">¿Cuántas consultas <span class="hl">se te escaparon este mes?</span></p>
+              <ul class="md-ask__tags" aria-label="Formas comunes de perder una consulta">
+                <li>Cita olvidada</li><li>Paciente sin control</li><li>Presupuesto sin respuesta</li>
+              </ul>
+            </div>
+            <p class="head__text reveal">Haz la cuenta: si AoraMedical te ayuda a recuperar <b>una sola consulta al mes</b>, ya se pagó. Lo demás es ganancia: tiempo, orden y pacientes que vuelven.</p>
+          </div>
+        </div>
+        <div class="mdp-grid">
+          <article class="mdp reveal"><span class="pain__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span><b>Tu agenda vive en WhatsApp</b><span>Citas en chats, cuadernos y notas de voz. Un doble agendamiento y pierdes al paciente.</span></article>
+          <article class="mdp reveal" style="--d:60ms"><span class="pain__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 4l5 5L9 20H4v-5z"/><path d="M13 6l5 5"/></svg></span><b>Récipes e informes a mano</b><span>Escribes lo mismo una y otra vez, y el paciente no entiende tu letra.</span></article>
+          <article class="mdp reveal" style="--d:120ms"><span class="pain__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h4"/></svg></span><b>Historias que no encuentras</b><span>El paciente vuelve y no recuerdas qué le indicaste la última vez.</span></article>
+          <article class="mdp reveal"><span class="pain__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v18M17 7.5c0-1.9-2.2-3-5-3s-5 1.1-5 3 2.2 2.7 5 3.2 5 1.3 5 3.3-2.2 3.3-5 3.3-5-1.2-5-3.1"/></svg></span><b>Presupuestos que se enfrían</b><span>Armas el presupuesto en Word, lo envías tarde y el paciente se opera con otro médico.</span></article>
+          <article class="mdp reveal" style="--d:60ms"><span class="pain__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="3"/><circle cx="12" cy="12" r="2.5"/></svg></span><b>Cobros sin control</b><span>No sabes con certeza qué consultas se pagaron ni con qué referencia.</span></article>
+          <article class="mdp reveal" style="--d:120ms"><span class="pain__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4h4"/></svg></span><b>Pacientes que no vuelven</b><span>Sin seguimiento, el control se pierde y el paciente busca a otro médico.</span></article>
+        </div>
+        <div class="md-roi reveal">
+          <p><span>1 consulta recuperada al mes</span><b>=</b><span class="hl">tu plan pagado.</span></p>
+          <a class="btn btn--lime" href="#md-precio" data-cta="md-roi">Quiero recuperarla →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- M3 · Demo en video -->
+    <section class="section section--dark demo" id="md-demo">
+      <div class="flow__bg" aria-hidden="true"></div>
+      <div class="wrap">
+        <div class="testi__head">
+          <p class="eyebrow eyebrow--dark reveal"><span class="dot"></span>Míralo en acción</p>
+          <h2 class="h2 reveal">Así trabaja tu consulta <span class="hl">con AoraMedical.</span></h2>
+          <p class="testi__sub reveal">Grabado en el sistema real, con una médica, su secretaria y una paciente ficticia.</p>
+        </div>
+        <div class="demo__box reveal" data-demo-box>
+          <div class="demo__tabs" role="tablist" aria-label="Lo que haces con AoraMedical, en video">
+            <button type="button" role="tab" class="demo__tab is-on" id="mdt-agenda" aria-controls="mdp-agenda" aria-selected="true" data-demo="md-agenda">
+              <span class="demo__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span><span>Tu agenda</span><i class="demo__bar" aria-hidden="true"></i>
+            </button>
+            <button type="button" role="tab" class="demo__tab" id="mdt-cobro" aria-controls="mdp-cobro" aria-selected="false" tabindex="-1" data-demo="md-cobro">
+              <span class="demo__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="3"/><circle cx="12" cy="12" r="2.5"/></svg></span><span>Cobro de la consulta</span><i class="demo__bar" aria-hidden="true"></i>
+            </button>
+            <button type="button" role="tab" class="demo__tab" id="mdt-consulta" aria-controls="mdp-consulta" aria-selected="false" tabindex="-1" data-demo="md-consulta">
+              <span class="demo__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3v6a4 4 0 0 0 8 0V3"/><path d="M10 13v3a4 4 0 0 0 8 0v-2"/><circle cx="18" cy="12" r="2"/></svg></span><span>Historia y récipe</span><i class="demo__bar" aria-hidden="true"></i>
+            </button>
+            <button type="button" role="tab" class="demo__tab" id="mdt-firma" aria-controls="mdp-firma" aria-selected="false" tabindex="-1" data-demo="md-firma">
+              <span class="demo__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19c3-1 4-6 7-6s2 4 5 4 3-3 4-4"/><path d="M4 21h16"/></svg></span><span>Firma y récipe impreso</span><i class="demo__bar" aria-hidden="true"></i>
+            </button>
+            <button type="button" role="tab" class="demo__tab" id="mdt-presupuesto" aria-controls="mdp-presupuesto" aria-selected="false" tabindex="-1" data-demo="md-presupuesto">
+              <span class="demo__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h4"/></svg></span><span>Presupuesto de cirugía</span><i class="demo__bar" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="demo__stage">
+            <div class="demo__panel is-on" role="tabpanel" id="mdp-agenda" aria-labelledby="mdt-agenda">
+              <p class="demo__chip">Tu agenda</p>
+              <h3>Agenda a tu paciente en un minuto.</h3>
+              <p class="demo__sub">Tu secretaria registra al paciente y le asigna la cita en tu agenda. Si trabajas solo, lo haces tú mismo.</p>
+              <div class="demo__screen"><video autoplay muted loop playsinline preload="auto" poster="/video/medico/agenda.jpg" src="/video/medico/agenda.mp4" aria-label="Video: la secretaria registra a la paciente y le agenda la cita"></video></div>
+            </div>
+            <div class="demo__panel" role="tabpanel" id="mdp-cobro" aria-labelledby="mdt-cobro" hidden>
+              <p class="demo__chip">Cobro de la consulta</p>
+              <h3>Cada consulta, cobrada.</h3>
+              <p class="demo__sub">Tu secretaria registra el Pago Móvil con su referencia y el paciente pasa a tu sala de espera.</p>
+              <div class="demo__screen"><video autoplay muted loop playsinline preload="metadata" poster="/video/medico/cobro.jpg" src="/video/medico/cobro.mp4" aria-label="Video: registro del pago de la consulta por Pago Móvil"></video></div>
+            </div>
+            <div class="demo__panel" role="tabpanel" id="mdp-consulta" aria-labelledby="mdt-consulta" hidden>
+              <p class="demo__chip">Historia y récipe</p>
+              <h3>Historia, diagnóstico y récipe en la misma pantalla.</h3>
+              <p class="demo__sub">Desde tu usuario de médico: diagnóstico CIE-10 con búsqueda y medicamentos con autocompletado.</p>
+              <div class="demo__screen"><video autoplay muted loop playsinline preload="metadata" poster="/video/medico/consulta.jpg" src="/video/medico/consulta.mp4" aria-label="Video: consulta con historia clínica, diagnóstico CIE-10 y récipe"></video></div>
+            </div>
+            <div class="demo__panel" role="tabpanel" id="mdp-firma" aria-labelledby="mdt-firma" hidden>
+              <p class="demo__chip">Firma y récipe impreso</p>
+              <h3>Firmas con tu PIN y el récipe sale listo.</h3>
+              <p class="demo__sub">Con tu membrete, tu firma y tus datos. La consulta queda cerrada y nadie la puede alterar.</p>
+              <div class="demo__screen"><video autoplay muted loop playsinline preload="metadata" poster="/video/medico/firma.jpg" src="/video/medico/firma.mp4" aria-label="Video: firma electrónica con PIN y récipe impreso"></video></div>
+            </div>
+            <div class="demo__panel" role="tabpanel" id="mdp-presupuesto" aria-labelledby="mdt-presupuesto" hidden>
+              <p class="demo__chip">Presupuesto de cirugía</p>
+              <h3>Tu presupuesto, listo para enviar.</h3>
+              <p class="demo__sub">Tu secretaria carga el paquete quirúrgico, el sistema calcula IVA y anticipo, y sale listo para imprimir o enviar por WhatsApp.</p>
+              <div class="demo__screen"><video autoplay muted loop playsinline preload="metadata" poster="/video/medico/presupuesto.jpg" src="/video/medico/presupuesto.mp4" aria-label="Video: presupuesto de artroscopia de rodilla con IVA y anticipo"></video></div>
+            </div>
+          </div>
+        </div>
+        <div class="lp-center reveal"><a class="btn btn--lime btn--lg" href="#md-precio" data-cta="md-demo">Lo quiero por $59,99 al mes</a></div>
+      </div>
+    </section>
+
+    <!-- M4 · Todo incluido -->
+    <section class="section section--soft" id="md-incluye">
+      <div class="wrap">
+        <div class="testi__head">
+          <p class="eyebrow reveal"><span class="eyebrow__n">02</span>Todo incluido</p>
+          <h2 class="h2 reveal">Por el precio de una consulta al mes, <span class="hl">esto es lo que tienes.</span></h2>
+          <p class="dv-sub reveal">Un solo plan. Sin módulos extra ni costos escondidos.</p>
+        </div>
+        <div class="mdf-grid">
+          <article class="mdf reveal"><span class="mdf__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span><h3>Tu agenda</h3><p>Tus horarios, tus cupos y tus citas. La maneja tu secretaria o la manejas tú.</p></article>
+          <article class="mdf reveal" style="--d:60ms"><span class="mdf__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></span><h3>Ficha única del paciente</h3><p>Lo registras una vez y ahí quedan sus consultas, sus antecedentes y sus documentos.</p></article>
+          <article class="mdf reveal" style="--d:120ms"><span class="mdf__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span><h3>Historia clínica estructurada</h3><p>Motivo, antecedentes, examen físico y diagnóstico CIE-10 con búsqueda.</p></article>
+          <article class="mdf reveal"><span class="mdf__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="7" rx="3.5" transform="rotate(-35 12 12.5)"/><path d="M9.5 9 14 15.5"/></svg></span><h3>Récipe en segundos</h3><p>Medicamentos con autocompletado, esquemas guardados y plantillas para tus casos frecuentes.</p></article>
+          <article class="mdf reveal" style="--d:60ms"><span class="mdf__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/></svg></span><h3>Documentos con tu membrete</h3><p>Récipe, informe, órdenes de exámenes, reposo y constancia, listos para imprimir o enviar en PDF.</p></article>
+          <article class="mdf reveal" style="--d:120ms"><span class="mdf__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19c3-1 4-6 7-6s2 4 5 4 3-3 4-4"/><path d="M4 21h16"/></svg></span><h3>Firma electrónica con PIN</h3><p>Firmas y la consulta queda cerrada: nadie la puede alterar después.</p></article>
+          <article class="mdf reveal"><span class="mdf__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v18M17 7.5c0-1.9-2.2-3-5-3s-5 1.1-5 3 2.2 2.7 5 3.2 5 1.3 5 3.3-2.2 3.3-5 3.3-5-1.2-5-3.1"/></svg></span><h3>Presupuestos de cirugía</h3><p>Tabulador, paquetes quirúrgicos, IVA y anticipo calculados, en PDF o por WhatsApp.</p></article>
+          <article class="mdf reveal" style="--d:60ms"><span class="mdf__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="3"/><circle cx="12" cy="12" r="2.5"/></svg></span><h3>Usuario para tu secretaria</h3><p>Agenda, recepción, cobro con referencia de Pago Móvil y presupuestos, desde su propio acceso.</p></article>
+          <article class="mdf reveal" style="--d:120ms"><span class="mdf__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></span><h3>Desde cualquier dispositivo</h3><p>Computadora, tablet o celular, sin instalar nada y con muy pocos datos.</p></article>
+        </div>
+        <ul class="md-extras reveal">
+          <li>Soporte 24 horas</li>
+          <li>Consultas confidenciales</li>
+          <li>Siempre en su última versión</li>
+          <li>Sin costo de instalación</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- M4b · Multiplataforma (compacta) -->
+    <section class="section section--white md-dev-sec" id="md-dispositivos">
+      <div class="wrap md-dev">
+        <div class="md-dev__copy">
+          <p class="dv-pill reveal"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>Multiplataforma</p>
+          <h2 class="md-dev__title reveal">Tu consulta en la computadora, la tablet <span class="hl">o el celular.</span></h2>
+          <p class="md-dev__text reveal">Tú atiendes desde la laptop, tu secretaria recibe y cobra a tus pacientes desde la tablet, y tú revisas tu sala de espera desde el teléfono, estés donde estés.</p>
+          <ul class="dv-points md-dev__points reveal">
+            <li>Sin instalar nada</li>
+            <li>Se instala como app, sin tiendas</li>
+            <li>Consume muy pocos datos</li>
+          </ul>
+        </div>
+        <div class="dv-stage md-dev__stage reveal" aria-label="AoraMedical en laptop, tablet y teléfono">
+          <figure class="dv dv--laptop">
+            <div class="dv__screen"><span class="dv__dots" aria-hidden="true"><i></i><i></i><i></i></span><img src="/img/dispositivo-md-laptop.jpg" width="1400" height="875" alt="AoraMedical en laptop: la sala de espera de la médica en Mi consulta" loading="lazy" /></div>
+            <div class="dv__base" aria-hidden="true"></div>
+          </figure>
+          <figure class="dv dv--tablet">
+            <div class="dv__screen"><img src="/img/dispositivo-md-tablet.jpg" width="1100" height="764" alt="AoraMedical en tablet: la secretaria con la paciente en espera y el pago registrado" loading="lazy" /></div>
+          </figure>
+          <figure class="dv dv--phone">
+            <div class="dv__screen"><img src="/img/dispositivo-md-mobile.jpg" width="520" height="1125" alt="AoraMedical en teléfono: la sala de espera de la médica" loading="lazy" /></div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- M5 · Un día con AoraMedical -->
+    <section class="section section--white" id="md-dia">
+      <div class="wrap">
+        <div class="head">
+          <div>
+            <p class="eyebrow reveal"><span class="eyebrow__n">03</span>Un día con AoraMedical</p>
+            <h2 class="h2 reveal">Así se ve tu mañana <span class="hl">cuando todo está en un solo lugar.</span></h2>
+          </div>
+          <p class="head__text reveal">Sin cuadernos, sin buscar chats viejos y sin volver a escribir el mismo récipe.</p>
+        </div>
+        <ol class="day">
+          <li class="reveal"><time>7:30 a. m.</time><b>Revisas tu agenda desde el celular</b><p>Tu secretaria ya agendó el día. Antes de salir de casa sabes a quién atiendes y a qué hora.</p></li>
+          <li class="reveal" style="--d:60ms"><time>8:00 a. m.</time><b>Llega tu paciente y su pago queda registrado</b><p>Tu secretaria anota la referencia del Pago Móvil y lo pasa a tu sala de espera.</p></li>
+          <li class="reveal" style="--d:120ms"><time>8:05 a. m.</time><b>Abres su historia</b><p>Ves sus antecedentes, sus alergias y lo que le indicaste la última vez.</p></li>
+          <li class="reveal" style="--d:180ms"><time>8:20 a. m.</time><b>Récipe e informe firmados</b><p>Diagnóstico CIE-10, récipe con autocompletado y tu PIN. Se va con sus documentos en la mano.</p></li>
+          <li class="reveal" style="--d:240ms"><time>12:00 m.</time><b>Sale el presupuesto de su cirugía</b><p>Tu secretaria lo arma con tu tabulador, el IVA y el anticipo, y lo envía por WhatsApp mientras el interés está caliente.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- M6 · Precio -->
+    <section class="section section--dark md-price" id="md-precio">
+      <div class="flow__bg" aria-hidden="true"></div>
+      <div class="wrap">
+        <div class="testi__head">
+          <p class="eyebrow eyebrow--dark reveal"><span class="dot"></span>Precio</p>
+          <h2 class="h2 reveal">Elige cada cuánto <span class="hl">pagas.</span></h2>
+          <p class="testi__sub reveal">Un solo plan, todo incluido. Tú eliges cómo pagarlo.</p>
+        </div>
+        <div class="plans plans--3">
+          <article class="plan-card plan-card--hot reveal">
+            <span class="plan-card__tag">Promo de bienvenida</span>
+            <p class="plan-card__name">Trimestral</p>
+            <p class="plan-card__deal">Paga 2 meses. El tercero, gratis.</p>
+            <p class="plan-card__price"><b>$119,98</b><span>/3 meses + IVA</span></p>
+            <p class="plan-card__note">Equivale a <b>$39,99 al mes</b> en tus primeros 3 meses.</p>
+            <a class="btn btn--lime btn--block" href="#md-activar" data-plan="Trimestral (promo)" data-cta="md-plan-trimestral">Aprovechar la promo</a>
+            <p class="plan-card__fine">Desde el 4.º mes pagas $59,99/mes + IVA.<br />Válida solo para tu primera compra.</p>
+          </article>
+          <article class="plan-card plan-card--main reveal" style="--d:80ms">
+            <span class="plan-card__tag plan-card__tag--main">Sin permanencia</span>
+            <p class="plan-card__name">Mensual</p>
+            <p class="plan-card__deal">Por el precio de una consulta.</p>
+            <p class="plan-card__price"><b>$59,99</b><span>/mes + IVA</span></p>
+            <p class="plan-card__note">Pagas mes a mes. Cancelas cuando quieras.</p>
+            <a class="btn btn--petrol btn--block" href="#md-activar" data-plan="Mensual" data-cta="md-plan-mensual">Empezar con el plan mensual</a>
+            <p class="plan-card__fine">Todo incluido: tu usuario, el de tu secretaria y soporte 24 horas.</p>
+          </article>
+          <article class="plan-card plan-card--soft reveal" style="--d:160ms">
+            <span class="plan-card__tag plan-card__tag--soft">2 meses gratis</span>
+            <p class="plan-card__name">Anual</p>
+            <p class="plan-card__deal">Paga 10 meses. Usas 12.</p>
+            <p class="plan-card__price"><b>$599,90</b><span>/año + IVA</span></p>
+            <p class="plan-card__note">Equivale a <b>$49,99 al mes</b>. Ahorras $119,98.</p>
+            <a class="btn btn--outline btn--block" href="#md-activar" data-plan="Anual" data-cta="md-plan-anual">Elegir el plan anual</a>
+            <p class="plan-card__fine">Un solo pago por 12 meses de servicio.</p>
+          </article>
+        </div>
+        <ul class="plan-incl reveal">
+          <li>Tu usuario y el de tu secretaria</li>
+          <li>Agenda y ficha del paciente</li>
+          <li>Historia clínica y CIE-10</li>
+          <li>Récipe, informe, órdenes, reposo y constancia</li>
+          <li>Firma electrónica con PIN</li>
+          <li>Presupuestos de cirugía</li>
+          <li>Cobro con Pago Móvil</li>
+          <li>Soporte 24 horas</li>
+        </ul>
+        <p class="plan-legal reveal">Precios en dólares estadounidenses, más IVA. Puedes pagar en bolívares a la tasa oficial del BCV del día.</p>
+      </div>
+    </section>
+
+    <!-- M7 · Testimonio y garantías -->
+    <section class="section section--white" id="md-confianza">
+      <div class="wrap">
+        <div class="md-trust">
+          <div class="md-quotes">
+          <figure class="md-quote reveal">
+            <span class="stars" aria-label="5 de 5 estrellas"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.5 5.2 5.7.8-4.1 4 1 5.7L10 14.8 4.9 17.5l1-5.7-4.1-4 5.7-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.5 5.2 5.7.8-4.1 4 1 5.7L10 14.8 4.9 17.5l1-5.7-4.1-4 5.7-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.5 5.2 5.7.8-4.1 4 1 5.7L10 14.8 4.9 17.5l1-5.7-4.1-4 5.7-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.5 5.2 5.7.8-4.1 4 1 5.7L10 14.8 4.9 17.5l1-5.7-4.1-4 5.7-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.5 5.2 5.7.8-4.1 4 1 5.7L10 14.8 4.9 17.5l1-5.7-4.1-4 5.7-.8z"/></svg></span>
+            <blockquote>«El récipe y el informe salen de la misma consulta, así que termino más rápido y ese tiempo se lo dedico a mis pacientes.»</blockquote>
+            <figcaption class="tcard__who"><span class="tcard__av">CC</span><div><b>Dr. César Chacón</b><span>Traumatólogo · usa AoraMedical en Clínica Ozanam</span></div></figcaption>
+          </figure>
+          <figure class="md-quote md-quote--light reveal" style="--d:80ms">
+            <span class="stars" aria-label="5 de 5 estrellas"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.5 5.2 5.7.8-4.1 4 1 5.7L10 14.8 4.9 17.5l1-5.7-4.1-4 5.7-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.5 5.2 5.7.8-4.1 4 1 5.7L10 14.8 4.9 17.5l1-5.7-4.1-4 5.7-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.5 5.2 5.7.8-4.1 4 1 5.7L10 14.8 4.9 17.5l1-5.7-4.1-4 5.7-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.5 5.2 5.7.8-4.1 4 1 5.7L10 14.8 4.9 17.5l1-5.7-4.1-4 5.7-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.5 5.2 5.7.8-4.1 4 1 5.7L10 14.8 4.9 17.5l1-5.7-4.1-4 5.7-.8z"/></svg></span>
+            <blockquote>«Agendo, cobro y paso a los pacientes desde el mismo sistema. El doctor ve en su pantalla quién llegó y quién ya pagó, y yo dejé de correr con papeles.»</blockquote>
+            <figcaption class="tcard__who"><span class="tcard__av">OM</span><div><b>Lic. Omarly Martínez</b><span>Asesora · usa AoraMedical en Clínica Ozanam</span></div></figcaption>
+          </figure>
+          </div>
+          <ul class="md-guar">
+            <li class="reveal"><span aria-hidden="true">0</span><div><b>Sin costo de instalación</b><p>Pagas tu plan y nada más.</p></div></li>
+            <li class="reveal" style="--d:60ms"><span aria-hidden="true">✓</span><div><b>Te lo dejamos listo</b><p>Configuramos tu membrete, tus datos profesionales y tu firma, y te enseñamos a usarlo.</p></div></li>
+            <li class="reveal" style="--d:120ms"><span aria-hidden="true">24</span><div><b>Soporte 24 horas</b><p>Si algo no funciona, te respondemos.</p></div></li>
+            <li class="reveal" style="--d:180ms"><span aria-hidden="true">↺</span><div><b>Sin permanencia en el plan mensual</b><p>Si no te convence, cancelas.</p></div></li>
+          </ul>
+        </div>
+
+        <div class="sinco reveal">
+          <div class="sinco__logo"><img class="sinco-logo sinco-logo--lg" src="/brand/sinco.svg" width="1281" height="341" alt="SINCO Consulting Group" loading="lazy" /></div>
+          <p>AoraMedical es una solución de <b>SINCO Consulting Group</b>, el mismo sistema que hoy usa la consulta externa de la Clínica Ozanam.</p>
+        </div>
+
+        <div class="faq" id="md-preguntas">
+          <h3 class="h2 faq__title reveal">¿Tienes dudas? <span class="hl">Tenemos respuestas.</span></h3>
+          <div class="faq__list">
+            <details class="reveal" name="mdfaq" open><summary>¿Qué incluye el plan?</summary><p>Tu usuario de médico y un usuario para tu secretaria. Agenda, ficha del paciente, historia clínica con CIE-10, récipe, informe, órdenes de exámenes, reposo y constancia con tu membrete, firma electrónica con PIN, presupuestos de cirugía, registro de cobros y soporte 24 horas.</p></details>
+            <details class="reveal" name="mdfaq"><summary>¿Y si no tengo secretaria?</summary><p>Lo haces tú mismo. Agendas, cobras y armas presupuestos desde el módulo de agenda, y atiendes desde tu usuario de médico.</p></details>
+            <details class="reveal" name="mdfaq"><summary>¿Tengo que instalar algo?</summary><p>No. Entras desde el navegador de tu computadora, tablet o celular. Si quieres, lo instalas como app sin pasar por una tienda.</p></details>
+            <details class="reveal" name="mdfaq"><summary>¿Mis historias clínicas son privadas?</summary><p>Sí. Tu información está separada de la de cualquier otro médico o institución. Las historias, récipes e informes los gestionas tú desde tu usuario de médico, y puedes marcar una consulta como confidencial.</p></details>
+            <details class="reveal" name="mdfaq"><summary>¿El récipe y el informe salen con mi membrete y mi firma?</summary><p>Sí. Configuramos tu membrete, tu CM, tu MPPS y tu firma. Cada documento se firma con tu PIN.</p></details>
+            <details class="reveal" name="mdfaq"><summary>¿Cómo funcionan la promo trimestral y el plan anual?</summary><p>Trimestral: pagas 2 meses ($119,98 + IVA) y usas 3. Desde el 4.º mes pagas el precio normal, $59,99 al mes + IVA. La promo aplica solo a tu primera compra. Anual: pagas 10 meses ($599,90 + IVA) y usas 12, así que te quedan 2 meses gratis.</p></details>
+            <details class="reveal" name="mdfaq"><summary>¿Cómo pago?</summary><p>En bolívares a la tasa oficial del BCV del día. Te enviamos los datos de pago cuando activas tu plan.</p></details>
+            <details class="reveal" name="mdfaq"><summary>¿Puedo cancelar?</summary><p>Sí. En el plan mensual pagas mes a mes y cancelas cuando quieras.</p></details>
+            <details class="reveal" name="mdfaq"><summary>¿Y si después tengo asistente o abro un centro?</summary><p>AoraMedical crece contigo. Pasas a la versión para consultorios y centros, con tus pacientes y tu historia intactos.</p></details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- M8 · Cierre -->
+    <section class="closing lp-close" id="md-activar">
+      <div class="closing__bg" aria-hidden="true"></div>
+      <div class="wrap closing__inner lp-close__inner">
+        <div class="closing__copy">
+          <p class="eyebrow eyebrow--dark reveal"><span class="dot"></span>Activa tu plan</p>
+          <h2 class="closing__title reveal">Empieza hoy. <span class="hl">Tu próxima consulta ya puede ser digital.</span></h2>
+          <p class="lp-close__lead reveal">Déjanos tus datos y elige tu plan. Te escribimos por WhatsApp para activarlo y configurar tu membrete y tu firma.</p>
+          <ul class="why reveal">
+            <li>Por el precio de una consulta al mes: $59,99 + IVA.</li>
+            <li>Incluye tu usuario de médico y el de tu secretaria.</li>
+            <li>Promo trimestral: pagas 2 meses y el tercero es gratis. Anual: 2 meses gratis.</li>
+            <li>Sin costo de instalación y con soporte 24 horas.</li>
+            </ul>
+          <div class="md-next reveal">
+            <p class="md-next__title">Así de simple empiezas</p>
+            <ol>
+              <li><span>1</span><div><b>Envías tus datos</b><p>Te toma menos de un minuto.</p></div></li>
+              <li><span>2</span><div><b>Te escribimos por WhatsApp</b><p>Confirmamos tu plan y cargamos tu membrete, tus datos y tu firma.</p></div></li>
+              <li><span>3</span><div><b>Atiendes tu primera consulta digital</b><p>Con tu usuario y el de tu secretaria listos.</p></div></li>
+            </ol>
+            <p class="md-next__price"><b>$59,99</b> al mes + IVA · el precio de una consulta</p>
+          </div>
+        </div>
+
+        <div class="lead reveal" id="mdLead">
+          <p class="lead__step">Activa tu plan</p>
+          <form id="mdForm" novalidate>
+            <fieldset class="lead__fs is-on">
+              <legend>Tus datos</legend>
+              <label class="fld"><span>Nombre y apellido</span><input name="nombre" autocomplete="name" required /></label>
+              <label class="fld"><span>WhatsApp</span>
+                <span class="fld__tel"><b>+58</b><input name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="412 1234567" required /></span>
+                <em class="fld__err" id="mdTelErr" hidden>Revisa el número: por aquí activamos tu plan.</em>
+              </label>
+              <label class="fld"><span>Especialidad</span><input name="especialidad" placeholder="Ej. Traumatología" required /></label>
+              <label class="fld"><span>Ciudad</span><input name="ciudad" autocomplete="address-level2" required /></label>
+              <div class="fld"><span id="lblPlan">Plan</span>
+                <div class="opts" role="radiogroup" aria-labelledby="lblPlan">
+                  <label><input type="radio" name="plan" value="Mensual" checked /><span>Mensual · $59,99</span></label>
+                  <label><input type="radio" name="plan" value="Trimestral (promo)" /><span>Trimestral · 3.er mes gratis</span></label>
+                  <label><input type="radio" name="plan" value="Anual" /><span>Anual · 2 meses gratis</span></label>
+                </div>
+              </div>
+              <label class="fld"><span>Correo electrónico <small>(opcional)</small></span><input name="correo" type="email" autocomplete="email" /></label>
+              <button type="submit" class="btn btn--lime btn--block">Activar mi plan</button>
+            </fieldset>
+            <p class="lead__privacy">Tus datos solo se usan para activar tu plan. No enviamos publicidad.</p>
+          </form>
+          <div class="lead__done" id="mdDone" hidden tabindex="-1">
+            <span class="lead__ok" aria-hidden="true"></span>
+            <h3 id="mdDoneTitle">¡Listo! Recibimos tus datos.</h3>
+            <p id="mdDoneText">Confirma por WhatsApp y activamos tu plan. Te respondemos en menos de 24 horas.</p>
+            <a class="btn btn--lime btn--block" id="mdWaConfirm" href="#" target="_blank" rel="noopener">Confirmar por WhatsApp</a>
+          </div>
+          <p class="lead__alt">¿Prefieres preguntar primero? <a href="#" class="js-wa" data-wa="medico" data-cta="md-cierre-whatsapp">Escríbenos por WhatsApp</a></p>
+          <p class="lead__meta">$59,99 al mes + IVA · Sin costo de instalación · Soporte 24 horas</p>
+        </div>
+      </div>
+
+      <footer class="wrap">
+        <div class="lp-foot">
+          <div class="lp-foot__brand">
+            <img src="/brand/logo.svg" width="1151" height="169" alt="AoraMedical" loading="lazy" />
+            <p>Tu consultorio digital: agenda, historias, récipes, firma y presupuestos por el precio de una consulta al mes.</p>
+            <span class="lp-footer__sinco">Una solución de <img class="sinco-logo" src="/brand/sinco-white.svg" width="1281" height="341" alt="SINCO Consulting Group" loading="lazy" /></span>
+          </div>
+          <nav class="lp-foot__col" aria-label="Plan para médicos">
+            <p>Plan médico</p>
+            <a href="#md-demo">Demo en video</a>
+            <a href="#md-incluye">Qué incluye</a>
+            <a href="#md-precio">Precio</a>
+            <a href="#md-preguntas">Preguntas frecuentes</a>
+          </nav>
+          <nav class="lp-foot__col" aria-label="Otras versiones">
+            <p>¿Tienes un equipo?</p>
+            <a href="./" data-aud-go="general">Consultorios y centros</a>
+            <a href="./" data-aud-go="general">Clínicas e instituciones</a>
+            <span>Venezuela</span>
+          </nav>
+          <nav class="lp-foot__col" aria-label="Contacto">
+            <p>Contacto</p>
+            <a href="#md-activar" data-cta="md-footer">Activar mi plan</a>
+            <a href="#" class="js-wa" data-wa="medico" data-cta="md-footer-whatsapp">WhatsApp</a>
+            <span>Soporte 24 horas</span>
+          </nav>
+        </div>
+        <p class="lp-legal">Los datos que envías en este formulario se usan únicamente para activar tu plan y responder tu solicitud. No se comparten con terceros ni se usan para publicidad.</p>
+      </footer>
+    </section>
+  </main>
+
   <!-- Acceso rápido: WhatsApp flotante y barra fija en móvil -->
   <a class="wa-fab js-wa" href="#" aria-label="Escríbenos por WhatsApp" data-cta="whatsapp-flotante">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a9.5 9.5 0 0 0-8.2 14.3L2.5 21.5l4.8-1.3A9.5 9.5 0 1 0 12 2.5Z"/><path d="M8.6 7.9c.2-.4.4-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .6l-.5.7c-.1.2-.2.3 0 .6.6 1 1.4 1.8 2.5 2.4.3.1.4.1.6-.1l.7-.8c.2-.2.3-.2.6-.1l1.8.9c.3.1.4.2.4.4 0 .5-.1 1.2-.6 1.6-.5.4-1.2.7-1.9.6-1.3-.2-3-.9-4.4-2.3-1.5-1.4-2.3-3-2.5-4.2-.1-.9.2-1.6.7-2.3Z"/></svg>
   </a>
   <div class="mbar" id="mbar">
-    <a class="btn btn--light" href="#diagnostico" data-cta="barra-movil">Agendar diagnóstico</a>
+    <a class="btn btn--light" href="#diagnostico" data-cta="barra-movil-cotizar" data-aud-show="general">Cotizar</a>
+    <a class="btn btn--lime" href="#md-precio" data-cta="md-barra-movil" data-aud-show="medico">Activar por $59,99/mes</a>
     <a class="mbar__wa js-wa" href="#" aria-label="WhatsApp" data-cta="barra-movil-whatsapp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a9.5 9.5 0 0 0-8.2 14.3L2.5 21.5l4.8-1.3A9.5 9.5 0 1 0 12 2.5Z"/></svg></a>
   </div>
 

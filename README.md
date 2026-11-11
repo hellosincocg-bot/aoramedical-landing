@@ -2,6 +2,18 @@
 
 Landing comercial de AoraMedical (una solución de SINCO Consulting Group) para médicos independientes, consultorios, centros médicos y clínicas en Venezuela. Conversión única: agendar el **Diagnóstico Operativo** sin costo.
 
+## Dos versiones en una sola página
+
+| Versión | URL | Conversión |
+| --- | --- | --- |
+| General (consultorios, centros y clínicas) | `/` | Botón **Cotizar** y Diagnóstico Operativo. No muestra precio. |
+| Médico independiente | `/medico` o `/?para=medico` | Plan de **$59,99/mes + IVA**; promo trimestral (paga 2 meses, el tercero gratis: $119,98; desde el 4.º mes $59,99/mes) y plan anual ($599,90: 10 meses pagados, 2 gratis; equivale a $49,99/mes). Formulario de activación. |
+
+- El selector «Para médicos / Para centros y clínicas» de la barra y el botón «Médico independiente» del hero cambian todo el cuerpo de la página.
+- Para anuncios dirigidos a médicos, usa directamente `https://TU-DOMINIO/medico` (con tus parámetros `utm_`).
+- Los videos de la versión médico están en `public/video/medico/` (grabados con el usuario de una médica y el de su secretaria, con una paciente ficticia).
+- El prospecto de la versión médico llega a `FORM_ENDPOINT` con los campos `especialidad` y `plan`. El Apps Script actualizado ya tiene esas columnas.
+
 ## Desplegar en Vercel
 
 1. Sube esta carpeta a un repositorio (o arrástrala en vercel.com/new).

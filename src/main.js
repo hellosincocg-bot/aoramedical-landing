@@ -33,6 +33,25 @@ const track = (event, data = {}) => window.dataLayer.push({ event, ...data });
 const state = { profile: '', pains: new Set(), cta: '', headline: 0 };
 const utm = Object.fromEntries([...new URLSearchParams(location.search)].filter(([k]) => k.startsWith('utm_')));
 
+/* ── Versión de la página: general (centros y clínicas) o médico independiente ── */
+const AUD_META = {
+  general: {
+    title: 'AoraMedical · Gestión médica y administrativa',
+    desc: 'AoraMedical une agenda, pacientes, cobros, consulta médica y gestión en una sola plataforma para clínicas, centros médicos, consultorios y médicos en Venezuela.',
+  },
+  medico: {
+    title: 'AoraMedical para médicos · Tu consultorio completo por $59,99 al mes',
+    desc: 'Por el precio de una consulta al mes: tu usuario de médico y el de tu secretaria. Agenda, historia clínica, récipes e informes con tu membrete, firma electrónica y presupuestos de cirugía. $59,99 + IVA. Promo trimestral: el tercer mes gratis. Anual: 2 meses gratis.',
+  },
+};
+function audFromUrl() {
+  const q = new URLSearchParams(location.search).get('para');
+  if (q === 'medico' || /\/medicos?\/?$/.test(location.pathname) || location.hash === '#medico') return 'medico';
+  return 'general';
+}
+let aud = audFromUrl();
+document.body.dataset.aud = aud;
+
 /* ── Toast ─────────────────────────────────────────────────────── */
 const toast = $('#toast');
 let toastTimer = 0;
@@ -57,8 +76,10 @@ $$('.reveal').forEach((el) => revealIO.observe(el));
 const nav = $('#nav');
 const bar = $('#progress');
 const mbar = $('#mbar');
+const heroEl = () => $(aud === 'medico' ? '#md-inicio' : '#inicio');
+const closeEl = () => $(aud === 'medico' ? '#md-activar' : '#diagnostico');
 const hero = $('#inicio');
-const closing = $('#diagnostico');
+let closing = closeEl();
 let ticking = false;
 function onScroll() {
   ticking = false;
@@ -66,8 +87,8 @@ function onScroll() {
   nav.classList.toggle('is-scrolled', y > 12);
   const max = document.documentElement.scrollHeight - window.innerHeight;
   bar.style.transform = `scaleX(${max > 0 ? Math.min(1, y / max) : 0})`;
-  const pastHero = y > hero.offsetHeight - 120;
-  const atClose = closing.getBoundingClientRect().top < window.innerHeight * 0.6;
+  const pastHero = y > heroEl().offsetHeight - 120;
+  const atClose = closeEl().getBoundingClientRect().top < window.innerHeight * 0.6;
   mbar.classList.toggle('is-on', pastHero && !atClose);
 }
 window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
@@ -95,20 +116,22 @@ $$('a', sheet).forEach((a) => a.addEventListener('click', () => setMenu(false)))
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !sheet.hidden) { setMenu(false); toggle.focus(); } });
 
 /* ── Titular rotativo del hero ─────────────────────────────────── */
-const rot = $('#rot');
-const rotItems = $$('.lp-rot__item', rot);
-let rotPaused = false;
-function setHeadline(i) {
-  state.headline = i;
-  rotItems.forEach((el, k) => el.classList.toggle('is-on', k === i));
+const rotators = $$('.lp-rot').map((el) => ({ el, items: $$('.lp-rot__item', el), i: 0, paused: false }));
+function setHeadline(r, i) {
+  r.i = i;
+  r.items.forEach((el, k) => { el.classList.toggle('is-on', k === i); el.setAttribute('aria-hidden', String(k !== i)); });
+  if (r.el.id === 'rot') state.headline = i;
 }
-if (!reduced && rotItems.length > 1) {
-  rot.addEventListener('pointerenter', () => { rotPaused = true; });
-  rot.addEventListener('pointerleave', () => { rotPaused = false; });
-  setInterval(() => {
-    if (rotPaused || document.hidden) return;
-    setHeadline((state.headline + 1) % rotItems.length);
-  }, CONFIG.ROTATE_MS);
+const visibleHeadline = () => (rotators.find((r) => r.el.offsetParent) || { i: 0 }).i;
+if (!reduced) {
+  rotators.filter((r) => r.items.length > 1).forEach((r) => {
+    r.el.addEventListener('pointerenter', () => { r.paused = true; });
+    r.el.addEventListener('pointerleave', () => { r.paused = false; });
+    setInterval(() => {
+      if (r.paused || document.hidden || !r.el.offsetParent) return;
+      setHeadline(r, (r.i + 1) % r.items.length);
+    }, CONFIG.ROTATE_MS);
+  });
 }
 
 /* ── Consola del hero: profundidad con el puntero ─────────────── */
@@ -146,7 +169,7 @@ function setProfile(p, source) {
 }
 chips.forEach((c) => c.addEventListener('click', () => {
   setProfile(c.dataset.profile, 'hero');
-  showToast('Listo. Adaptamos los beneficios a tu caso.');
+  if (!c.dataset.audGo) showToast('Listo. Adaptamos los beneficios a tu caso.');
 }));
 tabs.forEach((t, i) => {
   t.addEventListener('click', () => setProfile(t.dataset.profile, 'pestanas'));
@@ -246,7 +269,15 @@ if (!reduced) {
 /* ── CTA: registrar cuál se usó ────────────────────────────────── */
 $$('[data-cta]').forEach((a) => a.addEventListener('click', () => {
   state.cta = a.dataset.cta;
-  track('cta_click', { ubicacion: a.dataset.cta, titular_visible: state.headline + 1, perfil: state.profile || null });
+  track('cta_click', { ubicacion: a.dataset.cta, titular_visible: visibleHeadline() + 1, perfil: state.profile || null, version: aud });
+}));
+
+/* ── Cotizar (versión general) ─────────────────────────────────── */
+const PROFILE_OF = { 'Consultorio o centro': 'centro', 'Clínica o institución': 'clinica' };
+$$('[data-cta^="cotizar"], [data-cta="nav-cotizar"], [data-cta="barra-movil-cotizar"], [data-cta="footer-cotizar"], [data-cta="faq-cotizar"]').forEach((a) => a.addEventListener('click', () => {
+  state.cotizar = true;
+  if (a.dataset.cotizar) setProfile(PROFILE_OF[a.dataset.cotizar], 'cotizar');
+  showToast('Déjanos tus datos y te enviamos tu cotización por escrito.');
 }));
 
 /* ── WhatsApp ──────────────────────────────────────────────────── */
@@ -255,14 +286,15 @@ function waLink(text) {
   return n ? `https://wa.me/${n}?text=${encodeURIComponent(text)}` : '';
 }
 const WA_DEFAULT = 'Hola, quiero agendar mi diagnóstico operativo de AoraMedical. Mi centro es: ';
+const WA_MEDICO = 'Hola, quiero información del plan de AoraMedical para médicos ($59,99 al mes + IVA). Mi especialidad es: ';
 $$('.js-wa').forEach((a) => {
-  const href = waLink(WA_DEFAULT);
+  const href = waLink(a.dataset.wa === 'medico' ? WA_MEDICO : WA_DEFAULT);
   if (href) { a.href = href; a.target = '_blank'; a.rel = 'noopener'; }
   a.addEventListener('click', (e) => {
     track('whatsapp_click', { ubicacion: a.dataset.cta || 'whatsapp' });
     if (!href) {
       e.preventDefault();
-      closing.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
+      closeEl().scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
       showToast('Déjanos tus datos y te escribimos por WhatsApp en menos de 24 horas.');
     }
   });
@@ -344,6 +376,7 @@ form.addEventListener('submit', async (e) => {
     dolores: [...state.pains],
     cta: state.cta,
     titular_visible: state.headline + 1,
+    cotizacion: !!state.cotizar,
     utm,
     pagina: location.href,
     fecha: new Date().toISOString(),
@@ -357,7 +390,7 @@ form.addEventListener('submit', async (e) => {
   }
 
   const summary = [
-    'Hola, quiero agendar mi Diagnóstico Operativo de AoraMedical.',
+    state.cotizar ? 'Hola, quiero una cotización de AoraMedical y agendar mi Diagnóstico Operativo.' : 'Hola, quiero agendar mi Diagnóstico Operativo de AoraMedical.',
     `Nombre: ${lead.nombre}`,
     `Centro: ${lead.centro} (${lead.perfil})`,
     `Cargo: ${lead.cargo} · Médicos: ${lead.medicos}`,
@@ -399,51 +432,138 @@ form.addEventListener('submit', async (e) => {
 });
 
 /* ── Demo en video: reproducción automática, sin botón de play ─── */
-const demoTabs = $$('.demo__tab');
-const demoVids = demoTabs.map((t) => $('video', document.getElementById(t.getAttribute('aria-controls'))));
-let demoIdx = 0, demoTouched = false, demoVisible = false;
 const tryPlay = (v) => { if (!v) return; v.muted = true; v.defaultMuted = true; const r = v.play(); if (r && r.catch) r.catch(() => {}); };
-function setDemo(i, focus = false) {
-  demoTabs.forEach((t, k) => {
-    const on = k === i;
-    t.classList.toggle('is-on', on); t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1;
-    const panel = document.getElementById(t.getAttribute('aria-controls'));
-    panel.hidden = !on; panel.classList.toggle('is-on', on);
-    if (!on) demoVids[k]?.pause();
-    const bar = $('.demo__bar', t); bar.style.transition = 'none'; bar.style.transform = 'scaleX(0)';
+const demos = $$('.demo__box').map((box) => {
+  const section = box.closest('section');
+  const tabs = $$('.demo__tab', box);
+  const vids = tabs.map((t) => $('video', document.getElementById(t.getAttribute('aria-controls'))));
+  const d = { section, tabs, vids, idx: 0, touched: false, visible: false };
+  d.set = (i, focus = false) => {
+    tabs.forEach((t, k) => {
+      const on = k === i;
+      t.classList.toggle('is-on', on); t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1;
+      const panel = document.getElementById(t.getAttribute('aria-controls'));
+      panel.hidden = !on; panel.classList.toggle('is-on', on);
+      if (!on) vids[k]?.pause();
+      const bar = $('.demo__bar', t); bar.style.transition = 'none'; bar.style.transform = 'scaleX(0)';
+    });
+    d.idx = i; if (focus) tabs[i].focus();
+    const v = vids[i]; v.loop = d.touched; try { v.currentTime = 0; } catch {}
+    if (d.visible) tryPlay(v);
+    const next = vids[(i + 1) % vids.length]; if (next && next.preload !== 'auto') { next.preload = 'auto'; next.load(); }
+  };
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => { d.touched = true; d.set(i); track('demo_video', { modulo: t.dataset.demo }); });
+    t.addEventListener('keydown', (e) => {
+      const k = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
+      if (k === undefined) return; e.preventDefault(); d.touched = true; d.set((i + k + tabs.length) % tabs.length, true);
+    });
   });
-  demoIdx = i; if (focus) demoTabs[i].focus();
-  const v = demoVids[i]; v.loop = demoTouched; try { v.currentTime = 0; } catch {}
-  tryPlay(v);
-  const next = demoVids[(i + 1) % demoVids.length]; if (next && next.preload !== 'auto') { next.preload = 'auto'; next.load(); }
-}
-demoTabs.forEach((t, i) => {
-  t.addEventListener('click', () => { demoTouched = true; setDemo(i); track('demo_video', { modulo: t.dataset.demo }); });
-  t.addEventListener('keydown', (e) => {
-    const k = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
-    if (k === undefined) return; e.preventDefault(); demoTouched = true; setDemo((i + k + demoTabs.length) % demoTabs.length, true);
+  vids.forEach((v, k) => {
+    v.loop = false;
+    v.addEventListener('timeupdate', () => {
+      if (k !== d.idx) return;
+      const bar = $('.demo__bar', tabs[k]);
+      if (v.duration && bar) { bar.style.transition = 'transform .25s linear'; bar.style.transform = `scaleX(${v.currentTime / v.duration})`; }
+    });
+    v.addEventListener('ended', () => { if (k === d.idx && !d.touched) d.set((d.idx + 1) % tabs.length); });
+    v.addEventListener('canplay', () => { if (k === d.idx && d.visible) tryPlay(v); });
   });
-});
-demoVids.forEach((v, k) => {
-  v.loop = false;
-  v.addEventListener('timeupdate', () => {
-    if (k !== demoIdx) return;
-    const bar = $('.demo__bar', demoTabs[k]);
-    if (v.duration && bar) { bar.style.transition = 'transform .25s linear'; bar.style.transform = `scaleX(${v.currentTime / v.duration})`; }
-  });
-  v.addEventListener('ended', () => { if (k === demoIdx && !demoTouched) setDemo((demoIdx + 1) % demoTabs.length); });
-  v.addEventListener('canplay', () => { if (k === demoIdx && demoVisible) tryPlay(v); });
-});
-if (demoTabs.length) {
-  tryPlay(demoVids[0]);
   new IntersectionObserver(([e]) => {
-    demoVisible = e.isIntersecting;
-    if (demoVisible) tryPlay(demoVids[demoIdx]); else demoVids[demoIdx]?.pause();
-  }, { threshold: 0.2 }).observe($('#demo'));
-  // Si el navegador bloqueó la reproducción, la primera interacción la reanuda.
-  const kick = () => { if (demoVisible && demoVids[demoIdx].paused) tryPlay(demoVids[demoIdx]); };
-  ['pointerdown', 'scroll', 'keydown', 'touchstart'].forEach((ev) => window.addEventListener(ev, kick, { passive: true }));
+    d.visible = e.isIntersecting;
+    if (d.visible) tryPlay(vids[d.idx]); else vids[d.idx]?.pause();
+  }, { threshold: 0.2 }).observe(section);
+  return d;
+});
+// Si el navegador bloqueó la reproducción, la primera interacción la reanuda.
+const kick = () => demos.forEach((d) => { if (d.visible && d.vids[d.idx]?.paused) tryPlay(d.vids[d.idx]); });
+['pointerdown', 'scroll', 'keydown', 'touchstart'].forEach((ev) => window.addEventListener(ev, kick, { passive: true }));
+
+/* ── Plan médico: botones de plan y formulario de activación ───── */
+const mdForm = $('#mdForm');
+$$('[data-plan]').forEach((a) => a.addEventListener('click', () => {
+  const r = mdForm && $(`input[name="plan"][value="${a.dataset.plan}"]`, mdForm);
+  if (r) r.checked = true;
+  track('plan_elegido', { plan: a.dataset.plan });
+}));
+if (mdForm) {
+  const mv = (n) => (mdForm.elements[n]?.value || '').trim();
+  const mdText = (n, extra = () => true) => { const el = mdForm.elements[n]; const ok = el.value.trim().length > 1 && extra(el.value); el.setAttribute('aria-invalid', String(!ok)); return ok; };
+  mdForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const okTel = mdText('whatsapp', telOk);
+    $('#mdTelErr').hidden = okTel;
+    const ok = [mdText('nombre'), okTel, mdText('especialidad'), mdText('ciudad')].every(Boolean);
+    if (!ok) { showToast('Completa los campos marcados para continuar.'); return; }
+    const plan = mdForm.querySelector('input[name="plan"]:checked')?.value || 'Mensual';
+    const lead = {
+      nombre: mv('nombre'),
+      whatsapp: '+58' + mv('whatsapp').replace(/\D/g, '').replace(/^0/, ''),
+      perfil: 'Médico independiente',
+      centro: '',
+      cargo: 'Médico',
+      medicos: 'Solo yo',
+      modalidad: '',
+      ciudad: mv('ciudad'),
+      correo: mv('correo'),
+      especialidad: mv('especialidad'),
+      plan,
+      dolores: [],
+      cta: state.cta,
+      titular_visible: visibleHeadline() + 1,
+      utm,
+      pagina: location.href,
+      fecha: new Date().toISOString(),
+    };
+    if (CONFIG.FORM_ENDPOINT) {
+      try { await fetch(CONFIG.FORM_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(lead) }); } catch { /* respaldo por WhatsApp */ }
+    }
+    const summary = [
+      'Hola, quiero activar mi plan de AoraMedical para médicos.',
+      `Nombre: ${lead.nombre}`,
+      `Especialidad: ${lead.especialidad}`,
+      `Ciudad: ${lead.ciudad}`,
+      `Plan: ${({ 'Mensual': 'Mensual ($59,99/mes + IVA)', 'Trimestral (promo)': 'Trimestral promo ($119,98 + IVA por 3 meses; desde el 4.º mes $59,99/mes)', 'Anual': 'Anual ($599,90 + IVA, 2 meses gratis)' })[plan] || plan}`,
+    ].join('\n');
+    const waHref = waLink(summary);
+    const btn = $('#mdWaConfirm');
+    if (waHref) { btn.href = waHref; btn.hidden = false; } else { btn.hidden = true; }
+    $('#mdDoneTitle').textContent = `¡Listo, ${lead.nombre.split(' ')[0]}! Recibimos tus datos.`;
+    $('#mdDoneText').textContent = waHref
+      ? 'Confirma por WhatsApp y activamos tu plan. Te respondemos en menos de 24 horas.'
+      : 'Te escribimos por WhatsApp en menos de 24 horas para activar tu plan.';
+    mdForm.hidden = true;
+    const done = $('#mdDone'); done.hidden = false; done.focus();
+    track('lead_enviado', { perfil: 'medico', plan });
+  });
 }
+
+/* ── Cambio de versión (general ↔ médico) ─────────────────────── */
+function setAud(next, { push = false, scroll = true } = {}) {
+  aud = next;
+  document.body.dataset.aud = next;
+  $$('.aud-switch [data-aud-go]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.audGo === next)));
+  document.title = AUD_META[next].title;
+  $('meta[name="description"]')?.setAttribute('content', AUD_META[next].desc);
+  if (push) {
+    const u = new URL(location.href);
+    if (next === 'medico') u.searchParams.set('para', 'medico'); else u.searchParams.delete('para');
+    u.hash = '';
+    try { history.pushState({ aud: next }, '', u); } catch { /* archivo local */ }
+  }
+  if (scroll) window.scrollTo(0, 0);
+  $$(`[data-aud-show="${next}"] .reveal:not(.in)`).forEach((el) => { revealIO.unobserve(el); revealIO.observe(el); });
+  demos.forEach((d) => { if (!d.section.offsetParent) d.vids[d.idx]?.pause(); });
+  setMenu(false);
+  onScroll();
+  track('version_pagina', { version: next });
+}
+$$('[data-aud-go]').forEach((el) => el.addEventListener('click', (e) => {
+  e.preventDefault();
+  if (el.dataset.audGo !== aud) setAud(el.dataset.audGo, { push: true });
+}));
+window.addEventListener('popstate', () => setAud(audFromUrl(), { scroll: false }));
+setAud(aud, { scroll: false });
 
 /* ── FAQ: medir qué preguntas se abren ─────────────────────────── */
 $$('.faq details').forEach((d) => d.addEventListener('toggle', () => {
