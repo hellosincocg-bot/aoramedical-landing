@@ -6,6 +6,7 @@ services:
       - SUPA_PGPASSWORD=${SUPA_PGPASSWORD}
       - USERS_CSV=${USERS_CSV}
       - RUN_SQL=${RUN_SQL}
+      - EXPECT_SHA=${EXPECT_SHA}
     networks:
       - default
       - supa
