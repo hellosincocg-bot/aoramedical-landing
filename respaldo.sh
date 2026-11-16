@@ -22,7 +22,7 @@ hacer() {
   done
   psql $SUPA -qc "drop database if exists restore_test" >/dev/null 2>&1
   # copia externa en Neon
-  OID=$(psql "$NEON_BK_URL" -Atq -c "\lo_import '$F'" 2>&1 | grep -o '[0-9]*$' | tail -1)
+  OID=$(psql "$NEON_BK_URL" -At -c "\lo_import '$F'" 2>&1 | grep -o '[0-9]*$' | tail -1)
   if [ -n "$OID" ]; then
     psql "$NEON_BK_URL" -v ON_ERROR_STOP=1 -qc "insert into public.copias(nombre,bytes,sha256,oid_datos) values ('aora-$TS.dump',$BYTES,'$SHA',$OID)" \
      && psql "$NEON_BK_URL" -Atq -c "select lo_unlink(oid_datos) from public.copias where creado < now() - interval '$KEEP days'" -c "delete from public.copias where creado < now() - interval '$KEEP days'" >/dev/null \
