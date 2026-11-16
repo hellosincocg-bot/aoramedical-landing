@@ -1,0 +1,13 @@
+services:
+  migracion:
+    build: .
+    environment:
+      - NEON_URL=${NEON_URL}
+      - SUPA_PGPASSWORD=${SUPA_PGPASSWORD}
+    networks:
+      - default
+      - supa
+networks:
+  supa:
+    external: true
+    name: 4fdu6687u66x75guqvoiiklq
