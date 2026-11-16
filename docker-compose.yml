@@ -4,6 +4,8 @@ services:
     environment:
       - NEON_URL=${NEON_URL}
       - SUPA_PGPASSWORD=${SUPA_PGPASSWORD}
+      - USERS_CSV=${USERS_CSV}
+      - RUN_SQL=${RUN_SQL}
     networks:
       - default
       - supa
