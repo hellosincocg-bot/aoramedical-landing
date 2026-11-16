@@ -1,0 +1,18 @@
+services:
+  respaldo:
+    build: .
+    restart: unless-stopped
+    environment:
+      - SUPA_PGPASSWORD=${SUPA_PGPASSWORD}
+      - NEON_BK_URL=${NEON_BK_URL}
+    volumes:
+      - respaldos:/backups
+    networks:
+      - default
+      - supa
+volumes:
+  respaldos:
+networks:
+  supa:
+    external: true
+    name: 4fdu6687u66x75guqvoiiklq
