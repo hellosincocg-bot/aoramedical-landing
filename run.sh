@@ -1,8 +1,15 @@
 export PGCONNECT_TIMEOUT=10
 export PGPASSWORD="$SUPA_PGPASSWORD"
 SUPA="-h supabase-db -U supabase_admin -d postgre_AcQ7n88F"
-echo "== diagnostico =="
-psql $SUPA -c "select p.proname, pg_get_function_identity_arguments(p.oid) args, pg_get_userbyid(p.proowner) dueno, p.prosecdef, p.proacl from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and p.prokind='f' and not exists (select 1 from pg_depend dp where dp.objid=p.oid and dp.deptype='e') and not exists (select 1 from migracion.stmts s where s.ord=30 and s.sub = p.proname||'('||pg_get_function_identity_arguments(p.oid)||')')" 2>&1
-psql $SUPA -c "select count(*) filter (where relrowsecurity) con_rls, count(*) tablas from pg_class c join pg_namespace n on n.oid=c.relnamespace where n.nspname='public' and c.relkind='r'" 2>&1
+P=$(psql $SUPA -tAc "select count(*) from public.patients" 2>&1)
+echo "pacientes ya en Supabase: $P"
+if [ "$P" = "0" ]; then
+  echo "== copiando datos (una sola transaccion) =="
+  psql $SUPA -1 -v ON_ERROR_STOP=1 -v neon_conn="$NEON_URL" -f /app/datos.sql 2>&1 | tail -40
+else
+  echo "Supabase ya tiene datos: no copio de nuevo."
+fi
+echo "== verificando =="
+psql $SUPA -v ON_ERROR_STOP=1 -v neon_conn="$NEON_URL" -f /app/verificar.sql 2>&1 | tail -80
 echo "== fin =="
 sleep 1500
