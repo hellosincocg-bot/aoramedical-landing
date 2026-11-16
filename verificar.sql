@@ -8,8 +8,8 @@ declare r record; fn bigint; fs bigint; hn text; hs text;
 begin
   for r in select c.relname from pg_class c join pg_namespace n on n.oid=c.relnamespace
            where n.nspname='public' and c.relkind='r' order by c.relname loop
-    select t.n, t.h into fn, hn from migracion.dblink('neon', format('select count(*), coalesce(md5(string_agg(x::text, '''' order by x::text)),'''') from public.%I x', r.relname)) as t(n bigint, h text);
-    execute format('select count(*), coalesce(md5(string_agg(x::text, '''' order by x::text)),'''') from public.%I x', r.relname) into fs, hs;
+    select t.n, t.h into fn, hn from migracion.dblink('neon', format('select count(*), coalesce(md5(string_agg(x::text, '''' order by x::text collate ""C"")),'''') from public.%I x', r.relname)) as t(n bigint, h text);
+    execute format('select count(*), coalesce(md5(string_agg(x::text, '''' order by x::text collate ""C"")),'''') from public.%I x', r.relname) into fs, hs;
     insert into ver values (r.relname, fn, fs, hn, hs);
   end loop;
 end $$;
