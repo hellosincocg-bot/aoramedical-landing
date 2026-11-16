@@ -1,14 +1,13 @@
 export PGCONNECT_TIMEOUT=10
 export PGPASSWORD="$SUPA_PGPASSWORD"
 SUPA="-h supabase-db -U supabase_admin -d postgre_AcQ7n88F"
-echo "== bloqueando tablas sin RLS (sin politicas = acceso denegado a usuarios de API) =="
+echo "== diag auth =="
 psql $SUPA -v ON_ERROR_STOP=1 <<'SQL' 2>&1
-do $$ declare r record; begin
-  for r in select c.relname from pg_class c join pg_namespace n on n.oid=c.relnamespace where n.nspname='public' and c.relkind='r' and not c.relrowsecurity loop
-    execute format('alter table public.%I enable row level security', r.relname);
-  end loop; end $$;
-select count(*) filter (where relrowsecurity) con_rls, count(*) tablas from pg_class c join pg_namespace n on n.oid=c.relnamespace where n.nspname='public' and c.relkind='r';
-select count(*) usuarios_auth, count(*) filter (where is_anonymous) anonimos from auth.users;
+select column_name, data_type, is_nullable, column_default is not null as def, is_generated from information_schema.columns where table_schema='auth' and table_name='users' order by ordinal_position;
+select column_name, data_type, is_nullable, is_generated from information_schema.columns where table_schema='auth' and table_name='identities' order by ordinal_position;
+select id,email,aud,role,email_confirmed_at is not null conf,left(encrypted_password,4) pw,raw_app_meta_data from auth.users;
+select p.proname, pg_get_function_identity_arguments(p.oid) from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='extensions' and p.proname in ('crypt','gen_salt');
+select p.proname from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='auth';
 SQL
 echo "== fin =="
 sleep 1500
