@@ -4,7 +4,7 @@ SUPA="-h supabase-db -U supabase_admin -d postgre_AcQ7n88F"
 GOT=$(printf '%s' "$RUN_SQL" | tr -d ' \n\t' | sha256sum | cut -c1-64)
 if [ -n "$EXPECT_SHA" ] && [ "$GOT" != "$EXPECT_SHA" ]; then echo "SQL NO COINCIDE - no se ejecuta"; sleep 1500; exit 0; fi
 echo "== ejecutando RUN_SQL (sha verificado, sin su ultima linea) =="
-printf '%s\n' "$RUN_SQL" | sed '$d' | psql $SUPA -v ON_ERROR_STOP=1 -1 -v users="$USERS_CSV" 2>&1
+printf '%s\n' "$RUN_SQL" | grep -v funciones_con_neon_auth | psql $SUPA -v ON_ERROR_STOP=1 -1 -v users="$USERS_CSV" 2>&1
 echo "== verificacion =="
 psql $SUPA <<'SQL' 2>&1
 select count(*) funciones_con_neon_auth from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and p.prokind='f' and pg_get_functiondef(p.oid) ilike '%neon_auth%';
